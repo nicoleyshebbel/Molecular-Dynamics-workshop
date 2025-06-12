@@ -1,0 +1,46 @@
+; NPT Equilibration for Martini CG
+integrator      = md
+nsteps          = 50000            ; 1000 ps if dt = 0.02 ps
+dt              = 0.02             ; Martini default timestep (20 fs)
+
+; Output control
+nstxout         = 0
+nstvout         = 0
+nstfout         = 0
+nstlog          = 1000
+nstenergy       = 1000
+nstxout-compressed = 1000
+
+; Neighbor searching
+cutoff-scheme   = Verlet
+nstlist         = 20
+rlist           = 1.1
+
+; Electrostatics & van der Waals
+coulombtype     = reaction-field
+rcoulomb        = 1.1
+epsilon_r       = 15
+vdw_type        = cutoff
+rvdw            = 1.1
+
+; Temperature coupling
+tcoupl          = v-rescale
+tc-grps         = Protein Non-Protein
+tau_t           = 1.0     1.0
+ref_t           = 310     310
+
+; Pressure coupling
+pcoupl          = c-rescale
+pcoupltype      = isotropic
+tau_p           = 5.0
+ref_p           = 1.0
+compressibility = 3e-4
+refcoord_scaling = all
+
+; Periodic boundary conditions
+pbc             = xyz
+
+; Velocity generation
+gen_vel         = yes
+gen_temp        = 310
+gen_seed        = -1
