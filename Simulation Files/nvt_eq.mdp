@@ -1,0 +1,43 @@
+; NVT Equilibration for Martini CG
+define          = -DPOSRES         ; position restraints on proteins
+integrator      = md
+nsteps          = 50000            ; 1000 ps with 20 fs timestep
+dt              = 0.02             ; Martini default
+
+; Output
+nstxout         = 0
+nstvout         = 0
+nstfout         = 0
+nstlog          = 1000
+nstenergy       = 1000
+nstxout-compressed = 1000
+
+; Neighbor search
+cutoff-scheme   = Verlet
+nstlist         = 20
+ns_type         = grid
+rlist           = 1.1
+
+; Electrostatics & VDW
+coulombtype     = reaction-field
+rcoulomb        = 1.1
+epsilon_r       = 15
+vdw_type        = cutoff
+rvdw            = 1.1
+
+; Temperature coupling
+tcoupl          = v-rescale
+tc-grps         = Protein Non-Protein
+tau_t           = 1.0     1.0
+ref_t           = 310     310
+
+; No pressure coupling here!
+pcoupl          = no
+
+; PBC
+pbc             = xyz
+
+; Initial velocities
+gen_vel         = yes
+gen_temp        = 310
+gen_seed        = -1
