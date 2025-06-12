@@ -40,7 +40,7 @@ In this workshop, we will be working with a couple of different tools.
 
 - `-cs`: The configuration of the solvent. This is part of the standard GROMACS installation.
 
-## General Workflow
+# General Workflow
 
 ### Obtaining the input for the simulation
 You can manually download your protein(s) of interest directly from your favourite database, e.g The Protein Data Bank. You could also use a command to download it directly into your directory.
@@ -60,6 +60,15 @@ martinize2 -f your_protein_clean.pdb -o system.top -x cg_protein.pdb -p backbone
 martinize2 will generate 3 different files: A coarse-grained structure (cg_protein.pdb), a topology file ( system.top) and protein topology file ( molecule_0.itp). The amount of protein topology files will be entirely depedent on the amount of proteins in your system. Now, we should make a box that will accomodate our protein.
 
 The CGMD method, where the atomic degrees of freedom of all atoms are sacrificed by coarse-graining them into a small number of simulation particles, reduces computational costs and allows for a larger time and length scale of simulation [10].
+
+### Checking the topology
+
+You will need to add some more lines into your top file. The order of these files is extremely important, so be careful where you put them. It is important that martini.itp is in the first line. This file gives your system instructions regarding the force field, and if it's not the first file, it may causes issues in your run.
+```
+#include "martini_v3.0.0_small_molecules_v1.itp"
+#include "martini_v3.0.0_ions_v1.itp"
+#include "martini_v3.0.0_solvents_v1.itp"
+```
 
 ### Defining the simulation box
 ```
