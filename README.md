@@ -197,7 +197,7 @@ gmx mdrun -deffnm minimization -v
 ```
 
 ### Equilibration run -Temperature
-This first equilibration run is going to be a so called NVT ensemble or a canonical ensemble. In this type of ensemble, the amount of substance/number of particles (N), volume(V) and temperature are conserved. In the canonical ensemble, amount of substance (N), volume (V) and temperature (T) are conserved. This step is crucial to get our system to the temperature in which we want to run our simulation. Usually, the thermostat is set to 300K. Though less common, it can be set to 298K in some cases.
+This first equilibration run is going to be a so called NVT ensemble or a canonical ensemble. In this type of ensemble, the amount of substance/number of particles (N), volume(V) and temperature are conserved.This step is crucial to get our system to the temperature in which we want to run our simulation. Usually, the thermostat is set to 300K. Although less common, it can be set to 298K in some cases.
 
 ```
 gmx grompp -p system.top -c minimization.gro -f nvt_eq.mdp -o nvt.tpr -r solvated.gro
