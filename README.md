@@ -89,6 +89,7 @@ f = open("ss_output.txt", "w")
 f.write(ss_martini)
 f.close()
 ```
+You will find your file inside the File > Working Directory > File Browser. This will open the folder where your text output was place. It is the same Working Directory as the one where your PDB file came from.
 
 ### Generating topology and coarse-grained structure
 ```
@@ -107,14 +108,13 @@ You want to make sure that your protein has enough room inside the box to avoid 
 
 #### Checking the topology
 
-You will need to add some more lines into your system.top file. The order of these files is extremely important, so you should be mindful where you put them. It is important that martini.itp, the file that gives the parameters for the Martini force field, be the first file. After that, it should come your molecule(s) topology file. And after the topology, then you can add other files. TBy now, your topology file for your system should look something like this:
+You will need to add some more lines into your system.top file. The order of these files is extremely important, so you should be mindful where you put them. It is important that martini.itp, the file that gives the parameters for the Martini force field, be the first file. After that, it should come your molecule(s) topology file. And after the topology, then you can add other files(e.g martini_v3.0.0_small_molecules_v1.itp, martini_v3.0.0_solvents_v1.itp, etc). By now, your topology file for your system should look something like this:
 ```
 #include "martini.itp"
 #include "molecule_0.itp"
 #include "martini_v3.0.0_small_molecules_v1.itp"
 #include "martini_v3.0.0_ions_v1.itp"
 #include "martini_v3.0.0_solvents_v1.itp"
-#include "nucleotides.itp"
 
 [ system ]
 Title of the system in water
