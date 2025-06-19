@@ -130,7 +130,7 @@ Once the protein has been placed inside the simulation box, it's time to run a s
 gmx grompp will assemble the structure, topology and simulation parameters into a binary input file (.tpr). This file file will be used in a later step to run the energy minimization.
 
 ```
-gmx grompp -p system.top -f minimization.mdp -c system.gro -o minimization-vac.tpr  -r your_protein_cg.gro
+gmx grompp -p system.top -f minimization.mdp -c your_protein_cg.gro -o minimization-vac.tpr  -r your_protein_cg.gro
 ```
 Now that we have our .tpr file, we can run the energy minimization
 ```
@@ -160,6 +160,30 @@ Now that we have the ions.tpr file, it's time to add the ions to our system.
 ```
 gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutral -conc 0.15
 ```
+When prompted, you should select Group 13 (W).  You wouldn't want to add ions to your protein structure, would you?
+
+Just write down either 13 or W and hit enter.
+```
+
+Group     0 (         System) has  6242 elements
+Group     1 (        Protein) has   325 elements
+Group     2 (      Protein-H) has   325 elements
+Group     3 (        C-alpha) has     0 elements
+Group     4 (       Backbone) has     0 elements
+Group     5 (      MainChain) has     0 elements
+Group     6 (   MainChain+Cb) has     0 elements
+Group     7 (    MainChain+H) has     0 elements
+Group     8 (      SideChain) has   325 elements
+Group     9 (    SideChain-H) has   325 elements
+Group    10 (    Prot-Masses) has   325 elements
+Group    11 (    non-Protein) has  5917 elements
+Group    12 (          Other) has  5917 elements
+Group    13 (              W) has  5917 elements
+Select a group: 13
+Selected 13: 'W'
+Number of (1-atomic) solvent molecules: 5917
+```
+
 
 ### Second energy minimization
 
@@ -198,7 +222,7 @@ After our two rounds of equilibration, our system is now well equilibrated and r
 gmx grompp -p system.top -c npt.gro -f dynamic.mdp -o dynamic.tpr -maxwarn 1
 ```
 ```
-gmx mdrun -deffnm dynamic -v
+gmx mdrun -deffnm dynamic -v -ntmpi 4 -ntomp 6 -pin on
 ```
 By the end of this run, you should have three different files: Two trajectory files (.xtc and .tpr) and a file containing the spatial coordinates of your atoms during your molecular dynamics simulation (.gro)
 
