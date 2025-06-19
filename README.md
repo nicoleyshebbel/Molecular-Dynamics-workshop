@@ -61,20 +61,30 @@ martinize2 will generate 3 different files: A coarse-grained structure (cg_prote
 
 The CGMD method, where the atomic degrees of freedom of all atoms are sacrificed by coarse-graining them into a small number of simulation particles, reduces computational costs and allows for a larger time and length scale of simulation [10].
 
-### Checking the topology
-
-You will need to add some more lines into your top file. The order of these files is extremely important, so be careful where you put them. It is important that martini.itp is in the first line. This file gives your system instructions regarding the force field, and if it's not the first file, it may causes issues in your run.
-```
-#include "martini_v3.0.0_small_molecules_v1.itp"
-#include "martini_v3.0.0_ions_v1.itp"
-#include "martini_v3.0.0_solvents_v1.itp"
-```
 
 ### Defining the simulation box
 ```
 gmx editconf -f cg_protein.pdb -o cg_protein.gro -d 1.0 -bt cubic -c
 ```
 You want to make sure that your protein has enough room inside the box to avoid close contacts between periodic images of the protein. Typically, a minimum distance of 1.0 nm from the protein to any box edge tends to be used. If you still encounter close contacts, it might be recommend to make your box larger (e.g allowing for a distance of 1.5 nm from the protein to any box edge)
+
+#### Checking the topology
+
+You will need to add some more lines into your system.top file. The order of these files is extremely important, so you should be mindful where you put them. It is important that martini.itp, the file that gives the parameters for the Martini force field, be the first file. After that, it should come your molecule(s) topology file. And after the topology, then you can add other files. TBy now, your topology file for your system should look something like this:
+```
+#include "martini.itp"
+#include "molecule_0.itp"
+#include "martini_v3.0.0_small_molecules_v1.itp"
+#include "martini_v3.0.0_ions_v1.itp"
+#include "martini_v3.0.0_solvents_v1.itp"
+#include "nucleotides.itp"
+
+[ system ]
+Title of the system in water
+
+[ molecules ]
+molecule_0    1
+```
 
 ### Energy minimization
  
@@ -185,6 +195,6 @@ gmx trjconv -f dynamic.xtc -s dynamic.tpr -fit rot+trans -o simulation.pdb -cone
 Then you should run the renaming.py script to translate the pdb file into a compatible Pymol pdb.
 
 ```
-python renaming.py input.pdb output.pdb
+python rename.py input.pdb output.pdb
 ```
 Now Pymol should be able to easily read your file.
