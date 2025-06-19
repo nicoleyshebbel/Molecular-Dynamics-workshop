@@ -42,6 +42,22 @@ In this workshop, we will be working with a couple of different tools.
 
 # General Workflow
 
+### Loading the necessary modules
+Your first step is to load the GROMACS module. To do so, just type: 
+```
+module load GROMACS
+```
+If you don't have Martini3 installed yet, now is the time to install it. You should create an environment for it: 
+```
+conda create -n martini python=3.9
+```
+```
+conda activate martini
+```
+```
+pip install vermouth
+```
+
 ### Obtaining the input for the simulation
 You can manually download your protein(s) of interest directly from your favourite database, e.g The Protein Data Bank. You could also use a command to download it directly into your directory.
 ```
@@ -53,16 +69,37 @@ grep "^ATOM" your_protein.pdb > your_protein_clean.pdb
 ```
 This step is done in order to avoid that your protein file contains anything but your actual protein. Be careful, this step will remove anything that is not part of your protein including ligands. After you clean your structure, open the your_protein_clean.pdb file in your favourite visualizer to make sure it contains only the protein.
 
+### Specifying the secondary structure
+
+The spherical potentials used during coarse-graining leads to the loss of directional bonds, which in turn can impact the stability of secondary, tertiary and quartenary structure of proteins. Because of that, coarse-grained models require a structure bias model to stabilize protein structures. In this workshop, we will be using the Elastic Network structure bias model to stabilize our structure.
+
+But for that we need to specify the secondary structure of our protein. We can do that on PyMol quite easily. 
+
+After loading your PDB file on Pymol, you can load these commands to get the assign the secondary structure to your protein and also get a ss file with those informations.
+
+```
+stored.ss = []
+iterate (name CA), stored.ss.append(ss)
+```
+```
+ss_martini = "".join(['H' if x == 'H' else 'E' if x == 'S' else 'C' for x in stored.ss])
+```
+```
+f = open("ss_output.txt", "w")
+f.write(ss_martini)
+f.close()
+```
+
 ### Generating topology and coarse-grained structure
 ```
 martinize2 -f your_protein_clean.pdb -o system.top -x cg_protein.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss input your secondary structure in here
 ```
 martinize2 will generate 3 different files: A coarse-grained structure (cg_protein.pdb), a topology file ( system.top) and protein topology file ( molecule_0.itp). The amount of protein topology files will be entirely depedent on the amount of proteins in your system. Now, we should make a box that will accomodate our protein.
 
-The CGMD method, where the atomic degrees of freedom of all atoms are sacrificed by coarse-graining them into a small number of simulation particles, reduces computational costs and allows for a larger time and length scale of simulation [10].
-
 
 ### Defining the simulation box
+Now it's time to place the protein inside a simulation box.
+
 ```
 gmx editconf -f cg_protein.pdb -o cg_protein.gro -d 1.0 -bt cubic -c
 ```
