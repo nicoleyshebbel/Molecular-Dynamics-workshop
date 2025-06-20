@@ -1,0 +1,1922 @@
+;;; Martini 3 parameters for nucleotide cofactors
+;
+; The common aspect of nucleotide parameters allows for centralized definition.
+; Macro names were chosen to reflect bonded/nonbonded type (the first letter)
+; and the involved bead(s). When a distinction was needed for beads with the
+; same name, a suffix was used:
+;  '_term': terminal phosphate (thus, protonatable at pH 7);
+;  '_p': bound to a phosphate;
+;  '_ox': oxidized form;
+;  '_red': reduced form.
+;
+; Additional labels:
+;  'n_': indicates common bonded terms involving either the ADN1 or NCT1 beads;
+;  '_rb': indicates restricted-bending angle potentials;
+;  '_m1/2/3/4': indicates proper dihedrals with multiplicity 1/2/3/4.
+;
+; Protonation of protonatable terminal phosphates can be controlled via the
+; DEPROTONATED_TERM_PO4 global macro.
+
+
+;;; Nonbonded parameters
+;;; beadtypes
+#ifdef DEPROTONATED_TERM_PO4
+#define  t_po4_term     D
+#else
+#define  t_po4_term     Q5
+#endif
+#define  t_po4          Q4
+#define  t_adn1         SN1a
+#define  t_adn2         TN3a
+#define  t_adn3         TN5a
+#define  t_adn4         TP1d
+#define  t_adn5         TN3a
+#define  t_adn6         TC6
+#define  t_rbs1         SP2
+#define  t_rbs1_p       SC6
+#define  t_rbs2         SP3
+#define  t_rbs2_p       SN6
+#define  t_nct1         TN6a
+#define  t_nct1_ox      SQ1
+#define  t_nct1_red     SN1
+#define  t_nct2         TC5
+#define  t_nct3         SP5d
+#define  t_nct4         TC5
+#define  t_nct5         TC5
+#define  t_rib1         SP4
+#define  t_rib1_p       SP1
+#define  t_rib2         SP1
+#define  t_rib3         SP1
+#define  t_fla1         TN6a
+#define  t_fla1_red     TP1d
+#define  t_fla2         TP2
+#define  t_fla3         TN6a
+#define  t_fla4         TN6a
+#define  t_fla4_red     TP1d
+#define  t_fla5         SC4
+#define  t_fla6         SC4
+#define  t_fla7         TC5
+#define  t_thi1         SN6d
+#define  t_thi2         SN4a
+#define  t_thi3         TC5
+#define  t_thi4         TQ1
+#define  t_thi5         SC4
+#define  t_thi6         TC6
+#define  t_thi7         SN6a
+#define  t_thi7_p       SC6
+
+;;; beadcharges
+#ifdef DEPROTONATED_TERM_PO4
+#define  q_po4_term     -2
+#else
+#define  q_po4_term     -1
+#endif
+#define  q_po4          -1
+#define  q_nct1_ox      1
+#define  q_thi4         1
+
+;;; beadmasses
+#define  m_adn1  45
+#define  m_adn2  45
+#define  m_adn3  0.0
+#define  m_adn4  45
+#define  m_adn5  45
+#define  m_adn6  0.0
+#define  m_nct1  85.64
+#define  m_nct2  0.0
+#define  m_nct3  55.99
+#define  m_nct4  74.37
+#define  m_nct5  0.0
+#define  m_fla1  0.0
+#define  m_fla2  111.72
+#define  m_fla3  0.0
+#define  m_fla4  0.0
+#define  m_fla5  122.91
+#define  m_fla6  53.37
+#define  m_fla7  0.0
+
+;;; Bonded parameters
+;;; bonds
+#define  b_n_rbs1       1    0.398  9000
+#define  b_thi3_thi4    1    0.26   10000
+#define  b_thi6_thi7    1    0.25   18000
+#define  b_thi7_po4     1    0.315  18000
+#define  b_n_rbs2       1    0.31   10000
+#define  b_adn1_po4rbs  1    0.42   13000
+#define  b_rbs1_po4     1    0.29   18000
+#define  b_rbs1_rbs2    1    0.355  7000
+#define  b_rbs2_po4rbs  1    0.22   13000
+#define  b_po4_rib1     1    0.3    5000
+#define  b_rib1_rib2    1    0.29   2000
+#define  b_rib2_rib3    1    0.31   10000
+#define  b_rib3_fla4    1    0.41   5000
+
+;;; constraints
+#define  c_nct1_nct3  1    0.521
+#define  c_nct1_nct4  1    0.425
+#define  c_nct3_nct4  1    0.307
+#define  c_adn1_adn2  1    0.268
+#define  c_adn1_adn5  1    0.287
+#define  c_adn4_adn5  1    0.316
+#define  c_adn2_adn5  1    0.353
+#define  c_adn2_adn4  1    0.417
+#define  c_po4_po4    1    0.27
+#define  c_fla2_fla5  1    0.871
+#define  c_fla2_fla6  1    0.849
+#define  c_fla5_fla6  1    0.287
+#define  c_thi1_thi2  1    0.361
+#define  c_thi1_thi3  1    0.294
+#define  c_thi2_thi3  1    0.387
+#define  c_thi4_thi5  1    0.314
+#define  c_thi4_thi6  1    0.234
+#define  c_thi5_thi6  1    0.326
+
+;;; pairs
+#define  p_thi1_thi4  1    -0.3   1
+#define  p_thi5_thi7  1    -0.3   1
+#define  p_thi6_po4   1    -0.37  0.25
+#define  p_thi7_po4   1    -0.39  0.5
+#define  p_rbs1_po4   1    0.42   1.2
+#define  p_rbs2_po4   1    0.64   0.15
+#define  p_po4_po4    1    0.40   32.0
+
+;;; angles
+#define  a_adn1_rbs1_po4      2    150  50
+#define  a_nct1_rbs1_po4_red  2    150  50 ; same as a_adn1_rbs1_po4
+#define  a_nct1_rbs1_po4_ox   2    100  1.5
+#define  a_adn2_adn1_rbs2_rb  10   140  25
+#define  a_adn5_adn1_rbs1     2    135  55
+#define  a_adn5_adn1_rbs2     2    140  100
+#define  a_rbs1_po4_po4       2    105  30
+#define  a_rbs1_rbs2_po4rbs   2    160  140
+#define  a_rbs2_nct1_nct2_rb  10   138  10
+#define  a_rbs2_nct1_nct2     2    140  30
+#define  a_rbs2_nct1_nct5     2    180  15
+#define  a_po4_po4_po4        2    120  50
+#define  a_po4_po4_rib1       2    97   70
+#define  a_po4_rib1_rib2_rb   10   105  45
+#define  a_rib1_rib2_rib3     10   105  80
+#define  a_rib2_rib3_fla4_rb  10   130  50
+#define  a_rib3_fla4_fla7     2    36   100
+#define  a_thi1_thi3_thi4     2    80   150
+#define  a_thi3_thi4_thi5     2    96   150
+#define  a_thi5_thi6_thi7     2    70   250
+
+;;; dihedrals
+#define  d_adn1_adn2_adn5_adn4     2    180   400
+#define  d_adn2_adn1_rbs2_rbs1_m1  9    -25   5    1
+#define  d_adn2_adn1_rbs2_rbs1_m2  9    -70   5    2
+#define  d_adn5_adn2_adn1_rbs2_m1  9    20    4    1
+#define  d_adn5_adn2_adn1_rbs2_m4  9    0     4    4
+#define  d_rbs1_rbs2_nct1_nct2_m1  9    -37   6    1
+#define  d_rbs1_rbs2_nct1_nct2_m3  9    69    4    3
+#define  d_rbs1_rbs2_nct2_nct5_m2  1    -60   2    2
+#define  d_rbs2_nct1_nct2_nct5_m1  9    0     6    1
+#define  d_rbs2_nct1_nct2_nct5_m3  9    160   4    3
+#define  d_po4_po4_rib1_rib2_m1    9    160   3    1
+#define  d_po4_po4_rib1_rib2_m2    9    -130  2.5  2
+#define  d_po4_rib1_rib2_rib3      1    15    8    1
+#define  d_rib1_rib2_rib3_fla4     1    100   3    3
+#define  d_rib2_rib3_fla4_fla1_m1  9    115   3    1
+#define  d_rib2_rib3_fla4_fla1_m2  9    -95   6    2
+#define  d_rib3_fla7_fla1_fla4     2    -145  28
+#define  d_thi2_thi1_thi3_thi4_m1  9    -10   7    1
+#define  d_thi2_thi1_thi3_thi4_m3  9    175   4    3
+#define  d_thi1_thi3_thi4_thi5_m1  9    -12   6    1
+#define  d_thi1_thi3_thi4_thi5_m2  9    -3    7    2
+#define  d_thi3_thi4_thi5_thi6     1    0     10   1
+
+;;; virtual_sites3
+#define  v_adn3  2    0.52      0.373
+#define  v_nct2  1    0.54843   0.01177
+#define  v_nct5  1    -0.49321  1.05417
+#define  v_fla1  1    -0.01215  0.29695
+#define  v_fla3  1    1.06621   -0.8047
+#define  v_fla4  1    0.79997   -0.15874
+#define  v_fla7  1    0.06014   0.64901
+
+
+;;; Phosphate ions
+; Named as MP, DP and TP for mono- di- and tri-phosphate
+[ moleculetype ]
+  MP   1
+
+[ atoms ]
+  1    t_po4_term  1    MP   PO4  1    q_po4_term
+
+
+[ moleculetype ]
+  DP   1
+
+[ atoms ]
+  1    t_po4_term  1    DP   PO4A  1    q_po4_term
+  2    t_po4_term  1    DP   PO4B  2    q_po4_term
+
+[ constraints ]
+  1    2    c_po4_po4
+
+
+[ moleculetype ]
+  TP   1
+
+[ atoms ]
+  1    t_po4_term  1    TP   PO4A  1    q_po4_term
+  2    t_po4       1    TP   PO4B  2    q_po4
+  3    t_po4_term  1    TP   PO4C  3    q_po4_term
+
+[ constraints ]
+  1    2    c_po4_po4
+  2    3    c_po4_po4
+
+[ angles ]
+  1    2    3    a_po4_po4_po4
+
+
+;;; Adenosine group
+; Adenosine triphosphate
+[ moleculetype ]
+  ATP  1
+
+[ atoms ]
+  1    t_adn1      1    ATP  ADN1  1    0           m_adn1
+  2    t_adn2      1    ATP  ADN2  2    0           m_adn2
+  3    t_adn3      1    ATP  ADN3  3    0           m_adn3
+  4    t_adn4      1    ATP  ADN4  4    0           m_adn4
+  5    t_adn5      1    ATP  ADN5  5    0           m_adn5
+  6    t_adn6      1    ATP  ADN6  6    0           m_adn6
+  7    t_rbs1_p    1    ATP  RBS1  7    0
+  8    t_rbs2      1    ATP  RBS2  8    0
+  9    t_po4       1    ATP  PO4A  9    q_po4
+  10   t_po4       1    ATP  PO4B  10   q_po4
+  11   t_po4_term  1    ATP  PO4C  11   q_po4_term
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  10   11   c_po4_po4
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8     9   p_rbs2_po4
+  9    11   p_po4_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+
+
+; Adenosine diphosphate
+[ moleculetype ]
+  ADP  1
+
+[ atoms ]
+  1    t_adn1      1    ADP  ADN1  1    0           m_adn1
+  2    t_adn2      1    ADP  ADN2  2    0           m_adn2
+  3    t_adn3      1    ADP  ADN3  3    0           m_adn3
+  4    t_adn4      1    ADP  ADN4  4    0           m_adn4
+  5    t_adn5      1    ADP  ADN5  5    0           m_adn5
+  6    t_adn6      1    ADP  ADN6  6    0           m_adn6
+  7    t_rbs1_p    1    ADP  RBS1  7    0
+  8    t_rbs2      1    ADP  RBS2  8    0
+  9    t_po4       1    ADP  PO4A  9    q_po4
+  10   t_po4_term  1    ADP  PO4B  10   q_po4_term
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8     9   p_rbs2_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+
+
+; Adenosine monophosphate
+[ moleculetype ]
+  AMP  1
+
+[ atoms ]
+  1    t_adn1      1    AMP  ADN1  1    0           m_adn1
+  2    t_adn2      1    AMP  ADN2  2    0           m_adn2
+  3    t_adn3      1    AMP  ADN3  3    0           m_adn3
+  4    t_adn4      1    AMP  ADN4  4    0           m_adn4
+  5    t_adn5      1    AMP  ADN5  5    0           m_adn5
+  6    t_adn6      1    AMP  ADN6  6    0           m_adn6
+  7    t_rbs1_p    1    AMP  RBS1  7    0
+  8    t_rbs2      1    AMP  RBS2  8    0
+  9    t_po4_term  1    AMP  PO4   9    q_po4_term
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+
+[ pairs ]
+  8     9   p_rbs2_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+
+
+; Adenosine
+[ moleculetype ]
+  ADOS  1
+
+[ atoms ]
+  1    t_adn1  1    ADOS  ADN1  1    0    m_adn1
+  2    t_adn2  1    ADOS  ADN2  2    0    m_adn2
+  3    t_adn3  1    ADOS  ADN3  3    0    m_adn3
+  4    t_adn4  1    ADOS  ADN4  4    0    m_adn4
+  5    t_adn5  1    ADOS  ADN5  5    0    m_adn5
+  6    t_adn6  1    ADOS  ADN6  6    0    m_adn6
+  7    t_rbs1  1    ADOS  RBS1  7    0
+  8    t_rbs2  1    ADOS  RBS2  8    0
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  8    7    b_rbs1_rbs2
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+
+[ angles ]
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+
+
+;;; Nicotinamide adenine group
+; Nicotinamide adenine dinucleotide, oxidized form (NAD+)
+[ moleculetype ]
+  NAD  1
+
+[ atoms ]
+  1    t_adn1     1    NAD  ADN1  1    0          m_adn1
+  2    t_adn2     1    NAD  ADN2  2    0          m_adn2
+  3    t_adn3     1    NAD  ADN3  3    0          m_adn3
+  4    t_adn4     1    NAD  ADN4  4    0          m_adn4
+  5    t_adn5     1    NAD  ADN5  5    0          m_adn5
+  6    t_adn6     1    NAD  ADN6  6    0          m_adn6
+  7    t_rbs1_p   1    NAD  RBS1  7    0
+  8    t_rbs2     1    NAD  RBS2  8    0
+  9    t_po4      1    NAD  PO4A  9    q_po4
+  10   t_po4      1    NAD  PO4B  10   q_po4
+  11   t_rbs1_p   1    NAD  RBS3  11   0
+  12   t_rbs2     1    NAD  RBS4  12   0
+  13   t_nct1_ox  1    NAD  NCT1  13   q_nct1_ox  m_nct1
+  14   t_nct2     1    NAD  NCT2  14   0          m_nct2
+  15   t_nct3     1    NAD  NCT3  15   0          m_nct3
+  16   t_nct4     1    NAD  NCT4  16   0          m_nct4
+  17   t_nct5     1    NAD  NCT5  17   0          m_nct5
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  10   11   b_rbs1_po4
+  11   12   b_rbs1_rbs2
+  11   13   b_n_rbs1
+  12   13   b_n_rbs2
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8     9   p_rbs2_po4
+  9    11   p_rbs1_po4
+  10   12   p_rbs2_po4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  13   15   c_nct1_nct3
+  13   16   c_nct1_nct4
+  15   16   c_nct3_nct4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+  9    10   11   a_rbs1_po4_po4
+  10   11   13   a_nct1_rbs1_po4_ox
+  12   13   14   a_rbs2_nct1_nct2_rb
+  12   13   14   a_rbs2_nct1_nct2
+  12   13   17   a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  11   12   13   14   d_rbs1_rbs2_nct1_nct2_m1
+  11   12   13   14   d_rbs1_rbs2_nct1_nct2_m3
+  11   12   14   17   d_rbs1_rbs2_nct2_nct5_m2
+  12   13   14   17   d_rbs2_nct1_nct2_nct5_m1
+  12   13   14   17   d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  14   13   15   16   v_nct2
+  17   13   15   16   v_nct5
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+  13   14   17
+  14   15   16   17
+  15   17
+  16   17
+
+
+; Nicotinamide adenine dinucleotide, reduced form
+[ moleculetype ]
+  NADH  1
+
+[ atoms ]
+  1    t_adn1      1    NADH  ADN1  1    0      m_adn1
+  2    t_adn2      1    NADH  ADN2  2    0      m_adn2
+  3    t_adn3      1    NADH  ADN3  3    0      m_adn3
+  4    t_adn4      1    NADH  ADN4  4    0      m_adn4
+  5    t_adn5      1    NADH  ADN5  5    0      m_adn5
+  6    t_adn6      1    NADH  ADN6  6    0      m_adn6
+  7    t_rbs1_p    1    NADH  RBS1  7    0
+  8    t_rbs2      1    NADH  RBS2  8    0
+  9    t_po4       1    NADH  PO4A  9    q_po4
+  10   t_po4       1    NADH  PO4B  10   q_po4
+  11   t_rbs1_p    1    NADH  RBS3  11   0
+  12   t_rbs2      1    NADH  RBS4  12   0
+  13   t_nct1_red  1    NADH  NCT1  13   0      m_nct1
+  14   t_nct2      1    NADH  NCT2  14   0      m_nct2
+  15   t_nct3      1    NADH  NCT3  15   0      m_nct3
+  16   t_nct4      1    NADH  NCT4  16   0      m_nct4
+  17   t_nct5      1    NADH  NCT5  17   0      m_nct5
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  10   11   b_rbs1_po4
+  11   12   b_rbs1_rbs2
+  11   13   b_n_rbs1
+  12   13   b_n_rbs2
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8     9   p_rbs2_po4
+  9    11   p_rbs1_po4
+  10   12   p_rbs2_po4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  13   15   c_nct1_nct3
+  13   16   c_nct1_nct4
+  15   16   c_nct3_nct4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+  9    10   11   a_rbs1_po4_po4
+  10   11   13   a_nct1_rbs1_po4_red
+  12   13   14   a_rbs2_nct1_nct2_rb
+  12   13   14   a_rbs2_nct1_nct2
+  12   13   17   a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  11   12   13   14   d_rbs1_rbs2_nct1_nct2_m1
+  11   12   13   14   d_rbs1_rbs2_nct1_nct2_m3
+  11   12   14   17   d_rbs1_rbs2_nct2_nct5_m2
+  12   13   14   17   d_rbs2_nct1_nct2_nct5_m1
+  12   13   14   17   d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  14   13   15   16   v_nct2
+  17   13   15   16   v_nct5
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+  13   14   17
+  14   15   16   17
+  15   17
+  16   17
+
+
+; Nicotinamide adenine dinucleotide phosphate, oxidized form (NADP+)
+[ moleculetype ]
+  NADP  1
+
+[ atoms ]
+  1    t_adn1      1    NADP  ADN1   1    0              m_adn1
+  2    t_adn2      1    NADP  ADN2   2    0              m_adn2
+  3    t_adn3      1    NADP  ADN3   3    0              m_adn3
+  4    t_adn4      1    NADP  ADN4   4    0              m_adn4
+  5    t_adn5      1    NADP  ADN5   5    0              m_adn5
+  6    t_adn6      1    NADP  ADN6   6    0              m_adn6
+  7    t_rbs1_p    1    NADP  RBS1   7    0
+  8    t_rbs2_p    1    NADP  RBS2   8    0
+  9    t_po4_term  1    NADP  PO4A2  9    q_po4_term
+  10   t_po4       1    NADP  PO4A   10   q_po4
+  11   t_po4       1    NADP  PO4B   11   q_po4
+  12   t_rbs1_p    1    NADP  RBS3   12   0
+  13   t_rbs2      1    NADP  RBS4   13   0
+  14   t_nct1_ox   1    NADP  NCT1   14   q_nct1_ox      m_nct1
+  15   t_nct2      1    NADP  NCT2   15   0              m_nct2
+  16   t_nct3      1    NADP  NCT3   16   0              m_nct3
+  17   t_nct4      1    NADP  NCT4   17   0              m_nct4
+  18   t_nct5      1    NADP  NCT5   18   0              m_nct5
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  1    9    b_adn1_po4rbs
+  7    10   b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  8    9    b_rbs2_po4rbs
+  11   12   b_rbs1_po4
+  12   13   b_rbs1_rbs2
+  12   14   b_n_rbs1
+  13   14   b_n_rbs2
+
+[ pairs ]
+  7    11   p_rbs1_po4
+  8    10   p_rbs2_po4
+  10   12   p_rbs1_po4
+  11   13   p_rbs2_po4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  4    5    c_adn4_adn5
+  2    5    c_adn2_adn5
+  2    4    c_adn2_adn4
+  10   11   c_po4_po4
+  14   16   c_nct1_nct3
+  14   17   c_nct1_nct4
+  16   17   c_nct3_nct4
+
+[ angles ]
+  1    7    10   a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    10   11   a_rbs1_po4_po4
+  9    8    7    a_rbs1_rbs2_po4rbs
+  10   11   12   a_rbs1_po4_po4
+  11   12   14   a_nct1_rbs1_po4_ox
+  13   14   15   a_rbs2_nct1_nct2_rb
+  13   14   15   a_rbs2_nct1_nct2
+  13   14   18   a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  12   13   14   15   d_rbs1_rbs2_nct1_nct2_m1
+  12   13   14   15   d_rbs1_rbs2_nct1_nct2_m3
+  12   13   15   18   d_rbs1_rbs2_nct2_nct5_m2
+  13   14   15   18   d_rbs2_nct1_nct2_nct5_m1
+  13   14   15   18   d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  15   14   16   17   v_nct2
+  18   14   16   17   v_nct5
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    11
+  10   12
+  14   15   18
+  15   16   17   18
+  16   18
+  17   18
+
+
+; Nicotinamide adenine dinucleotide phosphate, reduced form
+[ moleculetype ]
+  NADPH  1
+
+[ atoms ]
+  1    t_adn1      1    NADPH  ADN1   1    0              m_adn1
+  2    t_adn2      1    NADPH  ADN2   2    0              m_adn2
+  3    t_adn3      1    NADPH  ADN3   3    0              m_adn3
+  4    t_adn4      1    NADPH  ADN4   4    0              m_adn4
+  5    t_adn5      1    NADPH  ADN5   5    0              m_adn5
+  6    t_adn6      1    NADPH  ADN6   6    0              m_adn6
+  7    t_rbs1_p    1    NADPH  RBS1   7    0
+  8    t_rbs2_p    1    NADPH  RBS2   8    0
+  9    t_po4_term  1    NADPH  PO4A2  9    q_po4_term
+  10   t_po4       1    NADPH  PO4A   10   q_po4
+  11   t_po4       1    NADPH  PO4B   11   q_po4
+  12   t_rbs1_p    1    NADPH  RBS3   12   0
+  13   t_rbs2      1    NADPH  RBS4   13   0
+  14   t_nct1_red  1    NADPH  NCT1   14   0              m_nct1
+  15   t_nct2      1    NADPH  NCT2   15   0              m_nct2
+  16   t_nct3      1    NADPH  NCT3   16   0              m_nct3
+  17   t_nct4      1    NADPH  NCT4   17   0              m_nct4
+  18   t_nct5      1    NADPH  NCT5   18   0              m_nct5
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  1    9    b_adn1_po4rbs
+  7    10   b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  8    9    b_rbs2_po4rbs
+  11   12   b_rbs1_po4
+  12   13   b_rbs1_rbs2
+  12   14   b_n_rbs1
+  13   14   b_n_rbs2
+
+[ pairs ]
+  7    11   p_rbs1_po4
+  8    10   p_rbs2_po4
+  10   12   p_rbs1_po4
+  11   13   p_rbs2_po4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  10   11   c_po4_po4
+  14   16   c_nct1_nct3
+  14   17   c_nct1_nct4
+  16   17   c_nct3_nct4
+
+[ angles ]
+  1    7    10   a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    10   11   a_rbs1_po4_po4
+  9    8    7    a_rbs1_rbs2_po4rbs
+  10   11   12   a_rbs1_po4_po4
+  11   12   14   a_nct1_rbs1_po4_red
+  13   14   15   a_rbs2_nct1_nct2_rb
+  13   14   15   a_rbs2_nct1_nct2
+  13   14   18   a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  12   13   14   15   d_rbs1_rbs2_nct1_nct2_m1
+  12   13   14   15   d_rbs1_rbs2_nct1_nct2_m3
+  12   13   15   18   d_rbs1_rbs2_nct2_nct5_m2
+  13   14   15   18   d_rbs2_nct1_nct2_nct5_m1
+  13   14   15   18   d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  15   14   16   17   v_nct2
+  18   14   16   17   v_nct5
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    11
+  10   12
+  14   15   18
+  15   16   17   18
+  16   18
+  17   18
+
+
+; Nicotinamide mononucleotide, oxidized form
+[ moleculetype ]
+  NMN  1
+
+[ atoms ]
+  1    t_po4_term  1    NMN  PO4   1    q_po4_term
+  2    t_rbs1_p    1    NMN  RBS1  2    0
+  3    t_rbs2      1    NMN  RBS2  3    0
+  4    t_nct1_ox   1    NMN  NCT1  4    q_nct1_ox   m_nct1
+  5    t_nct2      1    NMN  NCT2  5    0           m_nct2
+  6    t_nct3      1    NMN  NCT3  6    0           m_nct3
+  7    t_nct4      1    NMN  NCT4  7    0           m_nct4
+  8    t_nct5      1    NMN  NCT5  8    0           m_nct5
+
+[ bonds ]
+  1    2    b_rbs1_po4
+  2    3    b_rbs1_rbs2
+  2    4    b_n_rbs1
+  3    4    b_n_rbs2
+
+[ constraints ]
+  4    6    c_nct1_nct3
+  4    7    c_nct1_nct4
+  6    7    c_nct3_nct4
+
+[ pairs ]
+  1    3    p_rbs2_po4
+
+[ angles ]
+  1    2    4    a_nct1_rbs1_po4_ox
+  3    4    5    a_rbs2_nct1_nct2_rb
+  3    4    5    a_rbs2_nct1_nct2
+  3    4    8    a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  2    3    4    5    d_rbs1_rbs2_nct1_nct2_m1
+  2    3    4    5    d_rbs1_rbs2_nct1_nct2_m3
+  2    3    5    8    d_rbs1_rbs2_nct2_nct5_m2
+  3    4    5    8    d_rbs2_nct1_nct2_nct5_m1
+  3    4    5    8    d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  5    4    6    7    v_nct2
+  8    4    6    7    v_nct5
+
+[ exclusions ]
+  4    5    8
+  5    6    7    8
+  6    8
+  7    8
+
+
+; Nicotinamide mononucleotide, reduced form
+[ moleculetype ]
+  NMNH  1
+
+[ atoms ]
+  1    t_po4_term  1    NMNH  PO4   1    q_po4_term
+  2    t_rbs1_p    1    NMNH  RBS1  2    0
+  3    t_rbs2      1    NMNH  RBS2  3    0
+  4    t_nct1_red  1    NMNH  NCT1  4    0           m_nct1
+  5    t_nct2      1    NMNH  NCT2  5    0           m_nct2
+  6    t_nct3      1    NMNH  NCT3  6    0           m_nct3
+  7    t_nct4      1    NMNH  NCT4  7    0           m_nct4
+  8    t_nct5      1    NMNH  NCT5  8    0           m_nct5
+
+[ bonds ]
+  1    2    b_rbs1_po4
+  2    3    b_rbs1_rbs2
+  2    4    b_n_rbs1
+  3    4    b_n_rbs2
+
+[ constraints ]
+  4    6    c_nct1_nct3
+  4    7    c_nct1_nct4
+  6    7    c_nct3_nct4
+
+[ pairs ]
+  1    3    p_rbs2_po4
+
+[ angles ]
+  1    2    4    a_nct1_rbs1_po4_red
+  3    4    5    a_rbs2_nct1_nct2_rb
+  3    4    5    a_rbs2_nct1_nct2
+  3    4    8    a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  2    3    4    5    d_rbs1_rbs2_nct1_nct2_m1
+  2    3    4    5    d_rbs1_rbs2_nct1_nct2_m3
+  2    3    5    8    d_rbs1_rbs2_nct2_nct5_m2
+  3    4    5    8    d_rbs2_nct1_nct2_nct5_m1
+  3    4    5    8    d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  5    4    6    7    v_nct2
+  8    4    6    7    v_nct5
+
+[ exclusions ]
+  4    5    8
+  5    6    7    8
+  6    8
+  7    8
+
+
+; Nicotinamide riboside, oxidized form
+[ moleculetype ]
+  NRBOS  1
+
+[ atoms ]
+  1    t_rbs1_p    1    NRBOS  RBS1  1    0
+  2    t_rbs2      1    NRBOS  RBS2  2    0
+  3    t_nct1_ox   1    NRBOS  NCT1  3    q_nct1_ox   m_nct1
+  4    t_nct2      1    NRBOS  NCT2  4    0           m_nct2
+  5    t_nct3      1    NRBOS  NCT3  5    0           m_nct3
+  6    t_nct4      1    NRBOS  NCT4  6    0           m_nct4
+  7    t_nct5      1    NRBOS  NCT5  7    0           m_nct5
+
+[ bonds ]
+  1    2    b_rbs1_rbs2
+  1    3    b_n_rbs1
+  2    3    b_n_rbs2
+
+[ constraints ]
+  3    5    c_nct1_nct3
+  3    6    c_nct1_nct4
+  5    6    c_nct3_nct4
+
+[ angles ]
+  2    3    4    a_rbs2_nct1_nct2_rb
+  2    3    4    a_rbs2_nct1_nct2
+  2    3    7    a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    3    4    d_rbs1_rbs2_nct1_nct2_m1
+  1    2    3    4    d_rbs1_rbs2_nct1_nct2_m3
+  1    2    4    7    d_rbs1_rbs2_nct2_nct5_m2
+  2    3    4    7    d_rbs2_nct1_nct2_nct5_m1
+  2    3    4    7    d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  4    3    5    6    v_nct2
+  7    3    5    6    v_nct5
+
+[ exclusions ]
+  3    4    7
+  4    5    6    7
+  5    7
+  6    7
+
+
+; Nicotinamide riboside, reduced form
+[ moleculetype ]
+  NRBOSH  1
+
+[ atoms ]
+  1    t_rbs1_p    1    NRBOSH  RBS1  1    0
+  2    t_rbs2      1    NRBOSH  RBS2  2    0
+  3    t_nct1_red  1    NRBOSH  NCT1  3    0    m_nct1
+  4    t_nct2      1    NRBOSH  NCT2  4    0    m_nct2
+  5    t_nct3      1    NRBOSH  NCT3  5    0    m_nct3
+  6    t_nct4      1    NRBOSH  NCT4  6    0    m_nct4
+  7    t_nct5      1    NRBOSH  NCT5  7    0    m_nct5
+
+[ bonds ]
+  1    2    b_rbs1_rbs2
+  1    3    b_n_rbs1
+  2    3    b_n_rbs2
+
+[ constraints ]
+  3    5    c_nct1_nct3
+  3    6    c_nct1_nct4
+  5    6    c_nct3_nct4
+
+[ angles ]
+  2    3    4    a_rbs2_nct1_nct2_rb
+  2    3    4    a_rbs2_nct1_nct2
+  2    3    7    a_rbs2_nct1_nct5
+
+[ dihedrals ]
+  1    2    3    4    d_rbs1_rbs2_nct1_nct2_m1
+  1    2    3    4    d_rbs1_rbs2_nct1_nct2_m3
+  1    2    4    7    d_rbs1_rbs2_nct2_nct5_m2
+  2    3    4    7    d_rbs2_nct1_nct2_nct5_m1
+  2    3    4    7    d_rbs2_nct1_nct2_nct5_m3
+
+[ virtual_sites3 ]
+  4    3    5    6    v_nct2
+  7    3    5    6    v_nct5
+
+[ exclusions ]
+  3    4    7
+  4    5    6    7
+  5    7
+  6    7
+
+
+; Nicotinamide
+[ moleculetype ]
+  NCTN  1
+
+[ atoms ]
+  1    t_nct1  1    NCTN  NCT1  1    0    m_nct1
+  2    t_nct2  1    NCTN  NCT2  2    0    m_nct2
+  3    t_nct3  1    NCTN  NCT3  3    0    m_nct3
+  4    t_nct4  1    NCTN  NCT4  4    0    m_nct4
+  5    t_nct5  1    NCTN  NCT5  5    0    m_nct5
+
+[ constraints ]
+  1    3    c_nct1_nct3
+  1    4    c_nct1_nct4
+  3    4    c_nct3_nct4
+
+[ virtual_sites3 ]
+  2    1    3    4    v_nct2
+  5    1    3    4    v_nct5
+
+[ exclusions ]
+  1    2    5
+  2    3    4    5
+  3    5
+  4    5
+
+
+;;; Flavin group
+; Flavin adenine dinucleotide, oxidized form
+[ moleculetype ]
+  FAD  1
+
+[ atoms ]
+  1    t_adn1    1    FAD  ADN1  1    0      m_adn1
+  2    t_adn2    1    FAD  ADN2  2    0      m_adn2
+  3    t_adn3    1    FAD  ADN3  3    0      m_adn3
+  4    t_adn4    1    FAD  ADN4  4    0      m_adn4
+  5    t_adn5    1    FAD  ADN5  5    0      m_adn5
+  6    t_adn6    1    FAD  ADN6  6    0      m_adn6
+  7    t_rbs1_p  1    FAD  RBS1  7    0
+  8    t_rbs2    1    FAD  RBS2  8    0
+  9    t_po4     1    FAD  PO4A  9    q_po4
+  10   t_po4     1    FAD  PO4B  10   q_po4
+  11   t_rib1_p  1    FAD  RIB1  11   0
+  12   t_rib2    1    FAD  RIB2  12   0
+  13   t_rib3    1    FAD  RIB3  13   0
+  14   t_fla1    1    FAD  FLA1  14   0      m_fla1
+  15   t_fla2    1    FAD  FLA2  15   0      m_fla2
+  16   t_fla3    1    FAD  FLA3  16   0      m_fla3
+  17   t_fla4    1    FAD  FLA4  17   0      m_fla4
+  18   t_fla5    1    FAD  FLA5  18   0      m_fla5
+  19   t_fla6    1    FAD  FLA6  19   0      m_fla6
+  20   t_fla7    1    FAD  FLA7  20   0      m_fla7
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  10   11   b_po4_rib1
+  11   12   b_rib1_rib2
+  12   13   b_rib2_rib3
+  13   17   b_rib3_fla4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  15   18   c_fla2_fla5
+  15   19   c_fla2_fla6
+  18   19   c_fla5_fla6
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8    9    p_rbs2_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+  9    10   11   a_po4_po4_rib1
+  10   11   12   a_po4_rib1_rib2_rb
+  11   12   13   a_rib1_rib2_rib3
+  12   13   17   a_rib2_rib3_fla4_rb
+  13   17   20   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  9    10   11   12   d_po4_po4_rib1_rib2_m1
+  9    10   11   12   d_po4_po4_rib1_rib2_m2
+  10   11   12   13   d_po4_rib1_rib2_rib3
+  11   12   13   17   d_rib1_rib2_rib3_fla4
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m1
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m2
+  13   20   14   17   d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  14   15   18   19   v_fla1
+  16   15   18   19   v_fla3
+  17   15   18   19   v_fla4
+  20   15   18   19   v_fla7
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+  10   12
+  11   13
+  12   14
+  13   14   20
+  14   15   16   17   18   19   20
+  15   16   17   20
+  16   17   18   19   20
+  17   18   19   20
+  18   20
+  19   20
+
+
+; Flavin adenine dinucleotide, semiquinone form
+[ moleculetype ]
+  FADH  1
+
+[ atoms ]
+  1    t_adn1      1    FADH  ADN1  1    0      m_adn1
+  2    t_adn2      1    FADH  ADN2  2    0      m_adn2
+  3    t_adn3      1    FADH  ADN3  3    0      m_adn3
+  4    t_adn4      1    FADH  ADN4  4    0      m_adn4
+  5    t_adn5      1    FADH  ADN5  5    0      m_adn5
+  6    t_adn6      1    FADH  ADN6  6    0      m_adn6
+  7    t_rbs1_p    1    FADH  RBS1  7    0
+  8    t_rbs2      1    FADH  RBS2  8    0
+  9    t_po4       1    FADH  PO4A  9    q_po4
+  10   t_po4       1    FADH  PO4B  10   q_po4
+  11   t_rib1_p    1    FADH  RIB1  11   0
+  12   t_rib2      1    FADH  RIB2  12   0
+  13   t_rib3      1    FADH  RIB3  13   0
+  14   t_fla1      1    FADH  FLA1  14   0      m_fla1
+  15   t_fla2      1    FADH  FLA2  15   0      m_fla2
+  16   t_fla3      1    FADH  FLA3  16   0      m_fla3
+  17   t_fla4_red  1    FADH  FLA4  17   0      m_fla4
+  18   t_fla5      1    FADH  FLA5  18   0      m_fla5
+  19   t_fla6      1    FADH  FLA6  19   0      m_fla6
+  20   t_fla7      1    FADH  FLA7  20   0      m_fla7
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  10   11   b_po4_rib1
+  11   12   b_rib1_rib2
+  12   13   b_rib2_rib3
+  13   17   b_rib3_fla4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  15   18   c_fla2_fla5
+  15   19   c_fla2_fla6
+  18   19   c_fla5_fla6
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8    9    p_rbs2_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+  9    10   11   a_po4_po4_rib1
+  10   11   12   a_po4_rib1_rib2_rb
+  11   12   13   a_rib1_rib2_rib3
+  12   13   17   a_rib2_rib3_fla4_rb
+  13   17   20   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  9    10   11   12   d_po4_po4_rib1_rib2_m1
+  9    10   11   12   d_po4_po4_rib1_rib2_m2
+  10   11   12   13   d_po4_rib1_rib2_rib3
+  11   12   13   17   d_rib1_rib2_rib3_fla4
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m1
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m2
+  13   20   14   17   d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  14   15   18   19   v_fla1
+  16   15   18   19   v_fla3
+  17   15   18   19   v_fla4
+  20   15   18   19   v_fla7
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+  10   12
+  11   13
+  12   14
+  13   14   20
+  14   15   16   17   18   19   20
+  15   16   17   20
+  16   17   18   19   20
+  17   18   19   20
+  18   20
+  19   20
+
+
+; Flavin adenine dinucleotide, reduced form
+[ moleculetype ]
+  FADH2  1
+
+[ atoms ]
+  1    t_adn1      1    FADH2  ADN1  1    0      m_adn1
+  2    t_adn2      1    FADH2  ADN2  2    0      m_adn2
+  3    t_adn3      1    FADH2  ADN3  3    0      m_adn3
+  4    t_adn4      1    FADH2  ADN4  4    0      m_adn4
+  5    t_adn5      1    FADH2  ADN5  5    0      m_adn5
+  6    t_adn6      1    FADH2  ADN6  6    0      m_adn6
+  7    t_rbs1_p    1    FADH2  RBS1  7    0
+  8    t_rbs2      1    FADH2  RBS2  8    0
+  9    t_po4       1    FADH2  PO4A  9    q_po4
+  10   t_po4       1    FADH2  PO4B  10   q_po4
+  11   t_rib1_p    1    FADH2  RIB1  11   0
+  12   t_rib2      1    FADH2  RIB2  12   0
+  13   t_rib3      1    FADH2  RIB3  13   0
+  14   t_fla1_red  1    FADH2  FLA1  14   0      m_fla1
+  15   t_fla2      1    FADH2  FLA2  15   0      m_fla2
+  16   t_fla3      1    FADH2  FLA3  16   0      m_fla3
+  17   t_fla4_red  1    FADH2  FLA4  17   0      m_fla4
+  18   t_fla5      1    FADH2  FLA5  18   0      m_fla5
+  19   t_fla6      1    FADH2  FLA6  19   0      m_fla6
+  20   t_fla7      1    FADH2  FLA7  20   0      m_fla7
+
+[ bonds ]
+  1    7    b_n_rbs1
+  1    8    b_n_rbs2
+  7    9    b_rbs1_po4
+  8    7    b_rbs1_rbs2
+  10   11   b_po4_rib1
+  11   12   b_rib1_rib2
+  12   13   b_rib2_rib3
+  13   17   b_rib3_fla4
+
+[ constraints ]
+  1    2    c_adn1_adn2
+  1    5    c_adn1_adn5
+  2    4    c_adn2_adn4
+  2    5    c_adn2_adn5
+  4    5    c_adn4_adn5
+  9    10   c_po4_po4
+  15   18   c_fla2_fla5
+  15   19   c_fla2_fla6
+  18   19   c_fla5_fla6
+
+[ pairs ]
+  7    10   p_rbs1_po4
+  8    9    p_rbs2_po4
+
+[ angles ]
+  1    7    9    a_adn1_rbs1_po4
+  2    1    8    a_adn2_adn1_rbs2_rb
+  5    1    7    a_adn5_adn1_rbs1
+  5    1    8    a_adn5_adn1_rbs2
+  7    9    10   a_rbs1_po4_po4
+  9    10   11   a_po4_po4_rib1
+  10   11   12   a_po4_rib1_rib2_rb
+  11   12   13   a_rib1_rib2_rib3
+  12   13   17   a_rib2_rib3_fla4_rb
+  13   17   20   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    5    4    d_adn1_adn2_adn5_adn4
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m1
+  2    1    8    7    d_adn2_adn1_rbs2_rbs1_m2
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m1
+  5    2    1    8    d_adn5_adn2_adn1_rbs2_m4
+  9    10   11   12   d_po4_po4_rib1_rib2_m1
+  9    10   11   12   d_po4_po4_rib1_rib2_m2
+  10   11   12   13   d_po4_rib1_rib2_rib3
+  11   12   13   17   d_rib1_rib2_rib3_fla4
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m1
+  12   13   17   14   d_rib2_rib3_fla4_fla1_m2
+  13   20   14   17   d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  3    5    2    4    v_adn3
+  14   15   18   19   v_fla1
+  16   15   18   19   v_fla3
+  17   15   18   19   v_fla4
+  20   15   18   19   v_fla7
+
+[ virtual_sitesn ]
+  6    2    2    5
+
+[ exclusions ]
+  1    3    4    6
+  2    3    6
+  3    4    5    6
+  4    6
+  5    6
+  7    10
+  9    11
+  10   12
+  11   13
+  12   14
+  13   14   20
+  14   15   16   17   18   19   20
+  15   16   17   20
+  16   17   18   19   20
+  17   18   19   20
+  18   20
+  19   20
+
+
+; Flavin mononucleotide, oxidized form
+[ moleculetype ]
+  FMN  1
+
+[ atoms ]
+  1    t_po4_term  1    FMN  PO4   1    q_po4_term
+  2    t_rib1_p    1    FMN  RIB1  2    0
+  3    t_rib2      1    FMN  RIB2  3    0
+  4    t_rib3      1    FMN  RIB3  4    0
+  5    t_fla1      1    FMN  FLA1  5    0           m_fla1
+  6    t_fla2      1    FMN  FLA2  6    0           m_fla2
+  7    t_fla3      1    FMN  FLA3  7    0           m_fla3
+  8    t_fla4      1    FMN  FLA4  8    0           m_fla4
+  9    t_fla5      1    FMN  FLA5  9    0           m_fla5
+  10   t_fla6      1    FMN  FLA6  10   0           m_fla6
+  11   t_fla7      1    FMN  FLA7  11   0           m_fla7
+
+[ bonds ]
+  1    2    b_po4_rib1
+  2    3    b_rib1_rib2
+  3    4    b_rib2_rib3
+  4    8    b_rib3_fla4
+
+[ constraints ]
+  6    9    c_fla2_fla5
+  6    10   c_fla2_fla6
+  9    10   c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_po4_rib1_rib2_rb
+  2    3    4    a_rib1_rib2_rib3
+  3    4    8    a_rib2_rib3_fla4_rb
+  4    8    11   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    4    d_po4_rib1_rib2_rib3
+  2    3    4    8    d_rib1_rib2_rib3_fla4
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m1
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m2
+  4    11   5    8    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  5    6    9    10   v_fla1
+  7    6    9    10   v_fla3
+  8    6    9    10   v_fla4
+  11   6    9    10   v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    5
+  4    5    11
+  5    6    7    8    9    10   11
+  6    7    8    11
+  7    8    9    10   11
+  8    9    10   11
+  9    11
+  10   11
+
+
+; Flavin mononucleotide, semiquinone form
+[ moleculetype ]
+  FMNH  1
+
+[ atoms ]
+  1    t_po4_term  1    FMNH  PO4   1    q_po4_term
+  2    t_rib1_p    1    FMNH  RIB1  2    0
+  3    t_rib2      1    FMNH  RIB2  3    0
+  4    t_rib3      1    FMNH  RIB3  4    0
+  5    t_fla1      1    FMNH  FLA1  5    0           m_fla1
+  6    t_fla2      1    FMNH  FLA2  6    0           m_fla2
+  7    t_fla3      1    FMNH  FLA3  7    0           m_fla3
+  8    t_fla4_red  1    FMNH  FLA4  8    0           m_fla4
+  9    t_fla5      1    FMNH  FLA5  9    0           m_fla5
+  10   t_fla6      1    FMNH  FLA6  10   0           m_fla6
+  11   t_fla7      1    FMNH  FLA7  11   0           m_fla7
+
+[ bonds ]
+  1    2    b_po4_rib1
+  2    3    b_rib1_rib2
+  3    4    b_rib2_rib3
+  4    8    b_rib3_fla4
+
+[ constraints ]
+  6    9    c_fla2_fla5
+  6    10   c_fla2_fla6
+  9    10   c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_po4_rib1_rib2_rb
+  2    3    4    a_rib1_rib2_rib3
+  3    4    8    a_rib2_rib3_fla4_rb
+  4    8    11   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    4    d_po4_rib1_rib2_rib3
+  2    3    4    8    d_rib1_rib2_rib3_fla4
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m1
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m2
+  4    11   5    8    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  5    6    9    10   v_fla1
+  7    6    9    10   v_fla3
+  8    6    9    10   v_fla4
+  11   6    9    10   v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    5
+  4    5    11
+  5    6    7    8    9    10   11
+  6    7    8    11
+  7    8    9    10   11
+  8    9    10   11
+  9    11
+  10   11
+
+
+; Flavin mononucleotide, reduced form
+[ moleculetype ]
+  FMNH2  1
+
+[ atoms ]
+  1    t_po4_term  1    FMNH2  PO4   1    q_po4_term
+  2    t_rib1_p    1    FMNH2  RIB1  2    0
+  3    t_rib2      1    FMNH2  RIB2  3    0
+  4    t_rib3      1    FMNH2  RIB3  4    0
+  5    t_fla1_red  1    FMNH2  FLA1  5    0           m_fla1
+  6    t_fla2      1    FMNH2  FLA2  6    0           m_fla2
+  7    t_fla3      1    FMNH2  FLA3  7    0           m_fla3
+  8    t_fla4_red  1    FMNH2  FLA4  8    0           m_fla4
+  9    t_fla5      1    FMNH2  FLA5  9    0           m_fla5
+  10   t_fla6      1    FMNH2  FLA6  10   0           m_fla6
+  11   t_fla7      1    FMNH2  FLA7  11   0           m_fla7
+
+[ bonds ]
+  1    2    b_po4_rib1
+  2    3    b_rib1_rib2
+  3    4    b_rib2_rib3
+  4    8    b_rib3_fla4
+
+[ constraints ]
+  6    9    c_fla2_fla5
+  6    10   c_fla2_fla6
+  9    10   c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_po4_rib1_rib2_rb
+  2    3    4    a_rib1_rib2_rib3
+  3    4    8    a_rib2_rib3_fla4_rb
+  4    8    11   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    4    d_po4_rib1_rib2_rib3
+  2    3    4    8    d_rib1_rib2_rib3_fla4
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m1
+  3    4    8    5    d_rib2_rib3_fla4_fla1_m2
+  4    11   5    8    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  5    6    9    10   v_fla1
+  7    6    9    10   v_fla3
+  8    6    9    10   v_fla4
+  11   6    9    10   v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    5
+  4    5    11
+  5    6    7    8    9    10   11
+  6    7    8    11
+  7    8    9    10   11
+  8    9    10   11
+  9    11
+  10   11
+
+
+; Riboflavin, oxidized form
+[ moleculetype ]
+  RBFL  1
+
+[ atoms ]
+  1    t_rib1  1    RBFL  RIB1  1    0
+  2    t_rib2  1    RBFL  RIB2  2    0
+  3    t_rib3  1    RBFL  RIB3  3    0
+  4    t_fla1  1    RBFL  FLA1  4    0    m_fla1
+  5    t_fla2  1    RBFL  FLA2  5    0    m_fla2
+  6    t_fla3  1    RBFL  FLA3  6    0    m_fla3
+  7    t_fla4  1    RBFL  FLA4  7    0    m_fla4
+  8    t_fla5  1    RBFL  FLA5  8    0    m_fla5
+  9    t_fla6  1    RBFL  FLA6  9    0    m_fla6
+  10   t_fla7  1    RBFL  FLA7  10   0    m_fla7
+
+[ bonds ]
+  1    2    b_rib1_rib2
+  2    3    b_rib2_rib3
+  3    7    b_rib3_fla4
+
+[ constraints ]
+  5    8    c_fla2_fla5
+  5    9    c_fla2_fla6
+  8    9    c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_rib1_rib2_rib3
+  2    3    7    a_rib2_rib3_fla4_rb
+  3    7    10   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    7    d_rib1_rib2_rib3_fla4
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m1
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m2
+  3    10   4    7    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  4    5    8    9    v_fla1
+  6    5    8    9    v_fla3
+  7    5    8    9    v_fla4
+  10   5    8    9    v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    4    10
+  4    5    6    7    8    9    10
+  5    6    7    10
+  6    7    8    9    10
+  7    8    9    10
+  8    10
+  9    10
+
+
+; Riboflavin, semiquinone form
+[ moleculetype ]
+  RBFLH  1
+
+[ atoms ]
+  1    t_rib1      1    RBFLH  RIB1  1    0
+  2    t_rib2      1    RBFLH  RIB2  2    0
+  3    t_rib3      1    RBFLH  RIB3  3    0
+  4    t_fla1      1    RBFLH  FLA1  4    0    m_fla1
+  5    t_fla2      1    RBFLH  FLA2  5    0    m_fla2
+  6    t_fla3      1    RBFLH  FLA3  6    0    m_fla3
+  7    t_fla4_red  1    RBFLH  FLA4  7    0    m_fla4
+  8    t_fla5      1    RBFLH  FLA5  8    0    m_fla5
+  9    t_fla6      1    RBFLH  FLA6  9    0    m_fla6
+  10   t_fla7      1    RBFLH  FLA7  10   0    m_fla7
+
+[ bonds ]
+  1    2    b_rib1_rib2
+  2    3    b_rib2_rib3
+  3    7    b_rib3_fla4
+
+[ constraints ]
+  5    8    c_fla2_fla5
+  5    9    c_fla2_fla6
+  8    9    c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_rib1_rib2_rib3
+  2    3    7    a_rib2_rib3_fla4_rb
+  3    7    10   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    7    d_rib1_rib2_rib3_fla4
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m1
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m2
+  3    10   4    7    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  4    5    8    9    v_fla1
+  6    5    8    9    v_fla3
+  7    5    8    9    v_fla4
+  10   5    8    9    v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    4    10
+  4    5    6    7    8    9    10
+  5    6    7    10
+  6    7    8    9    10
+  7    8    9    10
+  8    10
+  9    10
+
+
+; Riboflavin, reduced form
+[ moleculetype ]
+  RBFLH2  1
+
+[ atoms ]
+  1    t_rib1      1    RBFLH2  RIB1  1    0
+  2    t_rib2      1    RBFLH2  RIB2  2    0
+  3    t_rib3      1    RBFLH2  RIB3  3    0
+  4    t_fla1_red  1    RBFLH2  FLA1  4    0    m_fla1
+  5    t_fla2      1    RBFLH2  FLA2  5    0    m_fla2
+  6    t_fla3      1    RBFLH2  FLA3  6    0    m_fla3
+  7    t_fla4_red  1    RBFLH2  FLA4  7    0    m_fla4
+  8    t_fla5      1    RBFLH2  FLA5  8    0    m_fla5
+  9    t_fla6      1    RBFLH2  FLA6  9    0    m_fla6
+  10   t_fla7      1    RBFLH2  FLA7  10   0    m_fla7
+
+[ bonds ]
+  1    2    b_rib1_rib2
+  2    3    b_rib2_rib3
+  3    7    b_rib3_fla4
+
+[ constraints ]
+  5    8    c_fla2_fla5
+  5    9    c_fla2_fla6
+  8    9    c_fla5_fla6
+
+[ angles ]
+  1    2    3    a_rib1_rib2_rib3
+  2    3    7    a_rib2_rib3_fla4_rb
+  3    7    10   a_rib3_fla4_fla7
+
+[ dihedrals ]
+  1    2    3    7    d_rib1_rib2_rib3_fla4
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m1
+  2    3    7    4    d_rib2_rib3_fla4_fla1_m2
+  3    10   4    7    d_rib3_fla7_fla1_fla4
+
+[ virtual_sites3 ]
+  4    5    8    9    v_fla1
+  6    5    8    9    v_fla3
+  7    5    8    9    v_fla4
+  10   5    8    9    v_fla7
+
+[ exclusions ]
+  1    3
+  2    4
+  3    4    10
+  4    5    6    7    8    9    10
+  5    6    7    10
+  6    7    8    9    10
+  7    8    9    10
+  8    10
+  9    10
+
+
+;;; Thiamine group
+; Thiamine pyrophosphate
+[ moleculetype ]
+  TPP  1
+
+[ atoms ]
+  1    t_thi1      1    TPP  THI1  1    0
+  2    t_thi2      1    TPP  THI2  2    0
+  3    t_thi3      1    TPP  THI3  3    0
+  4    t_thi4      1    TPP  THI4  4    q_thi4
+  5    t_thi5      1    TPP  THI5  5    0
+  6    t_thi6      1    TPP  THI6  6    0
+  7    t_thi7_p    1    TPP  THI7  7    0
+  8    t_po4       1    TPP  PO4A  8    q_po4
+  9    t_po4_term  1    TPP  PO4B  9    q_po4_term
+
+[ bonds ]
+  3    4    b_thi3_thi4
+  6    7    b_thi6_thi7
+  7    8    b_thi7_po4
+
+[ pairs ]
+  1    4    p_thi1_thi4
+  5    7    p_thi5_thi7
+  6    8    p_thi6_po4
+  7    9    p_thi7_po4
+
+[ constraints ]
+  1    2    c_thi1_thi2
+  1    3    c_thi1_thi3
+  2    3    c_thi2_thi3
+  4    5    c_thi4_thi5
+  4    6    c_thi4_thi6
+  5    6    c_thi5_thi6
+  8    9    c_po4_po4
+
+[ angles ]
+  1    3    4    a_thi1_thi3_thi4
+  3    4    5    a_thi3_thi4_thi5
+  5    6    7    a_thi5_thi6_thi7
+
+[ dihedrals ]
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m1
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m3
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m1
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m2
+  3    4    5    6    d_thi3_thi4_thi5_thi6
+
+[ exclusions ]
+  1    4
+  5    7
+  6    8
+  7    9
+
+
+; Thiamine monophosphate
+[ moleculetype ]
+  TMP  1
+
+[ atoms ]
+  1    t_thi1      1    TMP  THI1  1    0
+  2    t_thi2      1    TMP  THI2  2    0
+  3    t_thi3      1    TMP  THI3  3    0
+  4    t_thi4      1    TMP  THI4  4    q_thi4
+  5    t_thi5      1    TMP  THI5  5    0
+  6    t_thi6      1    TMP  THI6  6    0
+  7    t_thi7_p    1    TMP  THI7  7    0
+  8    t_po4_term  1    TMP  PO4   8    q_po4_term
+
+[ bonds ]
+  3    4    b_thi3_thi4
+  6    7    b_thi6_thi7
+  7    8    b_thi7_po4
+
+[ pairs ]
+  1    4    p_thi1_thi4
+  5    7    p_thi5_thi7
+  6    8    p_thi6_po4
+
+[ constraints ]
+  1    2    c_thi1_thi2
+  1    3    c_thi1_thi3
+  2    3    c_thi2_thi3
+  4    5    c_thi4_thi5
+  4    6    c_thi4_thi6
+  5    6    c_thi5_thi6
+
+[ angles ]
+  1    3    4    a_thi1_thi3_thi4
+  3    4    5    a_thi3_thi4_thi5
+  5    6    7    a_thi5_thi6_thi7
+
+[ dihedrals ]
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m1
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m3
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m1
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m2
+  3    4    5    6    d_thi3_thi4_thi5_thi6
+
+[ exclusions ]
+  1    4
+  5    7
+  6    8
+
+
+; Thiamine
+[ moleculetype ]
+  THI  1
+
+[ atoms ]
+  1    t_thi1  1    THI  THI1  1    0
+  2    t_thi2  1    THI  THI2  2    0
+  3    t_thi3  1    THI  THI3  3    0
+  4    t_thi4  1    THI  THI4  4    q_thi4
+  5    t_thi5  1    THI  THI5  5    0
+  6    t_thi6  1    THI  THI6  6    0
+  7    t_thi7  1    THI  THI7  7    0
+
+[ bonds ]
+  3    4    b_thi3_thi4
+  6    7    b_thi6_thi7
+
+[ pairs ]
+  1    4    p_thi1_thi4
+  5    7    p_thi5_thi7
+
+[ constraints ]
+  1    2    c_thi1_thi2
+  1    3    c_thi1_thi3
+  2    3    c_thi2_thi3
+  4    5    c_thi4_thi5
+  4    6    c_thi4_thi6
+  5    6    c_thi5_thi6
+
+[ angles ]
+  1    3    4    a_thi1_thi3_thi4
+  3    4    5    a_thi3_thi4_thi5
+  5    6    7    a_thi5_thi6_thi7
+
+[ dihedrals ]
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m1
+  4    3    1    2    d_thi2_thi1_thi3_thi4_m3
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m1
+  1    3    4    5    d_thi1_thi3_thi4_thi5_m2
+  3    4    5    6    d_thi3_thi4_thi5_thi6
+
+[ exclusions ]
+  1    4
+  5    7
+
+
+; 2,5-Dimethyl-4-Aminopyrimidine
+[ moleculetype ]
+  DAP  1
+
+[ atoms ]
+  1    t_thi1  1    DAP  THI1  1    0
+  2    t_thi2  1    DAP  THI2  2    0
+  3    t_thi3  1    DAP  THI3  3    0
+
+[ constraints ]
+  1    2    c_thi1_thi2
+  1    3    c_thi1_thi3
+  2    3    c_thi2_thi3
