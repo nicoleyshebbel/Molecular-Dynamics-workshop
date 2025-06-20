@@ -184,6 +184,60 @@ Selected 13: 'W'
 Number of (1-atomic) solvent molecules: 5917
 ```
 
+#### Adding the ligand to the simulation cell
+
+After the system has been solvated, it's time to add the ligand into the simulation cell. In order to do so, first we should make a copy of our .gro file
+```
+cp solvated.gro protein_ligand.gro
+```
+Once that's done, it's time to open it in a text editor. Copy the coordinates of your ligand (you will find them inside the liganind .gro file) and add them at the end of the file, just before the cell lenght.
+```
+ 2452CL      CL 2700   6.398   6.338   5.332
+ 2453CL      CL 2701   4.287   6.430   3.886
+ 2454CL      CL 2702   5.352   6.597   6.323
+ 1LIG         B1    1   4.198   4.457   2.136
+ 1LIG       B2    2   4.263   4.457   2.418
+ 1LIG         B3    3   4.433   4.549   2.547
+ 1LIG        B4    4   4.601   4.674   2.460
+ 1LIG         B5    5   4.477   4.601   2.190
+ 1LIG         B6    6   4.370   4.529   2.304
+ 1LIG         B7    7   4.136   4.256   1.856
+ 1LIG         B8    8   3.963   4.539   2.015
+ 1LIG         B9    9   4.339   4.125   1.694
+ 1LIG        B10   10   4.587   4.228   1.639
+ 1LIG        B11   11   4.795   4.324   1.801
+   6.89762   6.89762   6.89762
+```
+
+Don't forget to update the number of atoms in your file! The number of atoms can be found in the second line of your protein_ligand.gro file. 
+```
+Title of the system in water
+ 2713 (You should update this part by adding the number of atoms of your ligand to the number of atoms in your ligand-free system)
+    1GLU     BB    1   5.142   3.431   4.770
+    1GLU    SC1    2   5.458   3.665   4.725
+    2TYR     BB    3   5.271   3.145   4.626
+```
+#### Updating the topology file
+You should also update your system.top file to reflect the changes done in your gro file. Your final top file should look like this: 
+```
+#include "martini.itp"
+#include "molecule_0.itp"
+#include "martini_v3.0.0_small_molecules_v1.itp"
+#include "martini_v3.0.0_ions_v1.itp"
+#include "martini_v3.0.0_solvents_v1.itp"
+#include "nucleotides.itp"
+
+[ system ]
+Title of the system in water
+
+[ molecules ]
+molecule_0    1
+W           2164
+NA               45
+CL               30
+LIG              1
+```
+The number of NA, CL and W will depend on factors such as the size of your simulation cell, the charge of your system and the amount of molecules inside of it.
 
 ### Second energy minimization
 
@@ -245,7 +299,7 @@ gmx trjconv -s dynamic.tpr -f traj_whole.xtc -o traj_centered.xtc -center -pbc m
 ```
 
 ### Preparing the system for visualization
-Martini3 uses different naming conventions than VMD or Pymol, making these two visualizers unable to properly showcase your protein. Because of the incompatibilities between naming systems, your system will show up as if just made of solvent and ions.
+Martini3 uses different naming conventions than VMD or Pymol, making these two visualizers unable to properly showcase your protein. Because of the incompatibilities between naming conventions, your system will show up as if just made of solvent and ions.
 
 In order to fix this, first you must generate a pdb file based on your production run.
 
