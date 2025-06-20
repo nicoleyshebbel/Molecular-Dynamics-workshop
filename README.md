@@ -163,7 +163,6 @@ gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutra
 ```
 When prompted, you should select Group 13 (W).  You wouldn't want to add ions to your protein structure, would you?
 
-Just write down either 13 or W and hit enter.
 ```
 Command line:
   gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutral -conc 0.15
