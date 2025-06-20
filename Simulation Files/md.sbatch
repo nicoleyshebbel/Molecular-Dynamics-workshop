@@ -25,4 +25,4 @@ export GMX_GPU_DD_COMMS=true
 export GMX_GPU_PME_PP_COMMS=true
 
 
-gmx mdrun -deffnm short -v -ntmpi 4  -ntomp ${SLURM_CPUS_PER_TASK:-1}
+gmx mdrun -deffnm dynamic -v -ntmpi 4  -ntomp ${SLURM_CPUS_PER_TASK:-1} -pin on
