@@ -195,32 +195,42 @@ After the system has been solvated, it's time to add the ligand into the simulat
 ```
 cp solvated.gro protein_ligand.gro
 ```
-Once that's done, it's time to open it in a text editor. Copy the coordinates of your ligand (you will find them inside the liganind .gro file) and add them at the end of the file, just before the cell lenght.
+Once that's done, it's time to open it in a text editor. Copy the coordinates of your ligand (you will find them inside the ligand .gro file)
+
 ```
- 2452CL      CL 2700   6.398   6.338   5.332
- 2453CL      CL 2701   4.287   6.430   3.886
- 2454CL      CL 2702   5.352   6.597   6.323
- 1LIG         B1    1   4.198   4.457   2.136
- 1LIG       B2    2   4.263   4.457   2.418
- 1LIG         B3    3   4.433   4.549   2.547
- 1LIG        B4    4   4.601   4.674   2.460
- 1LIG         B5    5   4.477   4.601   2.190
- 1LIG         B6    6   4.370   4.529   2.304
- 1LIG         B7    7   4.136   4.256   1.856
- 1LIG         B8    8   3.963   4.539   2.015
- 1LIG         B9    9   4.339   4.125   1.694
- 1LIG        B10   10   4.587   4.228   1.639
- 1LIG        B11   11   4.795   4.324   1.801
-   6.89762   6.89762   6.89762
+One benzene molecule
+   3
+ 1BENZ      R1     1   3.092   0.660   2.416
+ 1BENZ      R2     2   2.882   0.500   2.361
+ 1BENZ      R3     3   2.986   0.658   2.168
+   4.04705   4.04705   4.04705
+```
+Now add the coordinates at the end of the file, just before the cell lenght
+```
+ 3114CL      CL 3333   5.060   0.707   3.866
+ 3115CL      CL 3334   4.857   6.938   0.205
+ 3116CL      CL 3335   6.335   5.101   0.232
+ 3117CL      CL 3336   6.550   4.857   3.118
+ 3118CL      CL 3337   7.006   6.194   3.369
+ 3119CL      CL 3338   6.062   5.445   2.350
+ 3120CL      CL 3339   5.692   6.195   3.504
+ 3121CL      CL 3340   7.216   5.363   6.495
+ 1BENZ       R1    1   3.092   0.660   2.416 
+ 1BENZ       R2    2   2.882   0.500   2.361 
+ 1BENZ       R3    3   2.986   0.658   2.168 
+   7.53042   7.53042   7.53042
 ```
 
 Don't forget to update the number of atoms in your file! The number of atoms can be found in the second line of your protein_ligand.gro file. 
 ```
 Title of the system in water
- 2713 (You should update this part by adding the number of atoms of your ligand to the number of atoms in your ligand-free system)
-    1GLU     BB    1   5.142   3.431   4.770
-    1GLU    SC1    2   5.458   3.665   4.725
-    2TYR     BB    3   5.271   3.145   4.626
+ 3343 (This number here is the sum of the atoms present in the solvation structure and also the ligand's atoms)
+    1MET     BB    1   4.542   2.402   3.751
+    1MET    SC1    2   4.688   2.692   3.528
+    2ASN     BB    3   4.302   2.597   3.918
+    2ASN    SC1    4   4.422   2.533   4.232
+    3ILE     BB    5   4.165   2.886   3.999
+    3ILE    SC1    6   3.838   2.878   4.098
 ```
 #### Updating the topology file
 You should also update your system.top file to reflect the changes done in your gro file. Your final top file should look like this: 
@@ -237,12 +247,11 @@ Title of the system in water
 
 [ molecules ]
 molecule_0    1
-W           2164
-NA               45
-CL               30
-LIG              1
+W           2787
+NA               39
+CL               47
+BENZ              1
 ```
-The number of NA, CL and W will depend on factors such as the size of your simulation cell, the charge of your system and the amount of molecules inside of it.
 
 ### Second energy minimization
 
@@ -322,5 +331,5 @@ Now Pymol should be able to easily read your file.
 ### Visualization
 Open your file in PyMOL. Load your trajectory using the following command: 
 ```
-traj_load traj_centered.xtc, simulation_system, start=0, stop=1000 , interval=1
+traj_load traj_centered.xtc, simulation_system, start=0, stop=1000
 ```
