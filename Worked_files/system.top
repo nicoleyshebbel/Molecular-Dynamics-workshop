@@ -1,0 +1,16 @@
+
+#include "martini.itp"
+#include "molecule_0.itp"
+#include "martini_v3.0.0_small_molecules_v1.itp"
+#include "martini_v3.0.0_ions_v1.itp"
+#include "martini_v3.0.0_solvents_v1.itp"
+
+[ system ]
+Title of the system in water
+
+[ molecules ]
+molecule_0    1
+W           2787
+NA               39
+CL               47
+BENZ              1
