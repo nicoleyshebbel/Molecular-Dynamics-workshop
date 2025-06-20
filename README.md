@@ -165,24 +165,29 @@ When prompted, you should select Group 13 (W).  You wouldn't want to add ions to
 
 Just write down either 13 or W and hit enter.
 ```
+Command line:
+  gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutral -conc 0.15
 
-Group     0 (         System) has  6242 elements
-Group     1 (        Protein) has   325 elements
-Group     2 (      Protein-H) has   325 elements
+Reading file ions.tpr, VERSION 2024.4-plumed_2.9.2 (single precision)
+Reading file ions.tpr, VERSION 2024.4-plumed_2.9.2 (single precision)
+Will try to add 39 NA ions and 47 CL ions.
+Select a continuous group of solvent molecules
+Group     0 (         System) has  3340 elements
+Group     1 (        Protein) has   381 elements
+Group     2 (      Protein-H) has   381 elements
 Group     3 (        C-alpha) has     0 elements
 Group     4 (       Backbone) has     0 elements
 Group     5 (      MainChain) has     0 elements
 Group     6 (   MainChain+Cb) has     0 elements
 Group     7 (    MainChain+H) has     0 elements
-Group     8 (      SideChain) has   325 elements
-Group     9 (    SideChain-H) has   325 elements
-Group    10 (    Prot-Masses) has   325 elements
-Group    11 (    non-Protein) has  5917 elements
-Group    12 (          Other) has  5917 elements
-Group    13 (              W) has  5917 elements
-Select a group: 13
+Group     8 (      SideChain) has   381 elements
+Group     9 (    SideChain-H) has   381 elements
+Group    10 (    Prot-Masses) has   381 elements
+Group    11 (    non-Protein) has  2959 elements
+Group    12 (          Other) has  2959 elements
+Group    13 (              W) has  2959 elements
+Select a group:
 Selected 13: 'W'
-Number of (1-atomic) solvent molecules: 5917
 ```
 
 #### Adding the ligand to the simulation cell
