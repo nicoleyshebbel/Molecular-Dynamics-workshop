@@ -15,7 +15,7 @@ In this workshop, we will be working with a couple of different tools.
 
 - For subsequent stages of the MD simulation, we will be using [GROMACS](https://www.gromacs.org/)
   
-- For visualization, we will be using [Pymol](https://pymol.org/)
+- For visualization, we will be using [PyMOL](https://pymol.org/)
 
 ## GROMACS terminology
 
@@ -313,3 +313,9 @@ Then you should run the renaming.py script to translate the pdb file into a comp
 python rename.py input.pdb output.pdb
 ```
 Now Pymol should be able to easily read your file.
+
+### Visualization
+Open your file in PyMOL. Load your trajectory using the following command: 
+```
+traj_load traj_centered.xtc, simulation_system, start=0, stop=1000 , interval=1
+```
