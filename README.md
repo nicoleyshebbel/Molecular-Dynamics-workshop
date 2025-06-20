@@ -41,6 +41,7 @@ In this workshop, we will be working with a couple of different tools.
 - `-cs`: The configuration of the solvent. This is part of the standard GROMACS installation.
 
 # General Workflow
+This workflow is based on the fantastic job done by the [Martini Force Field Initiative team](https://cgmartini.nl/docs/tutorials/Martini3/Protein_Ligand_Binding/). This workflow will take you through the necessary steps to set up a coarse-grained protein-ligand simulation.
 
 ### Loading the necessary modules
 Your first step is to load the GROMACS module. To do so, just type: 
@@ -61,11 +62,11 @@ pip install vermouth
 ### Obtaining the input for the simulation
 You can manually download your protein(s) of interest directly from your favourite database, e.g The Protein Data Bank. You could also use a command to download it directly into your directory.
 ```
-wget http://www.rcsb.org/pdb/files/your_protein.pdb
+wget http://www.rcsb.org/pdb/files/181L.pdb
 ```
 ### Cleaning the input structure
 ```
-grep "^ATOM" your_protein.pdb > your_protein_clean.pdb
+grep "^ATOM" 181L.pdb > 181L_clean.pdb
 ```
 This step is done in order to avoid that your protein file contains anything but your actual protein. Be careful, this step will remove anything that is not part of your protein including ligands. After you clean your structure, open the your_protein_clean.pdb file in your favourite visualizer to make sure it contains only the protein.
 
@@ -93,7 +94,7 @@ You will find your file inside the File > Working Directory > File Browser. This
 
 ### Generating topology and coarse-grained structure
 ```
-martinize2 -f your_protein_clean.pdb -o system.top -x cg_protein.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss input your secondary structure in here
+martinize2 -f 181L_clean.pdb -o system.top -x 181L_clean.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss CCHHHHHHHHHCCCCCCEEECCEEEECCCCCCCCCCCCHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHHHHHHCCCHHHHHHHCCHHHHHHHHHHHHHHCHHHHHHCHHHHHHHHHCCHHHHHHHHHCCHHHHHCHHHHHHHHHHHHHCCCHHHC
 ```
 martinize2 will generate 3 different files: A coarse-grained structure (cg_protein.pdb), a topology file ( system.top) and protein topology file ( molecule_0.itp). The amount of protein topology files will be entirely depedent on the amount of proteins in your system. Now, we should make a box that will accomodate our protein.
 
@@ -102,7 +103,7 @@ martinize2 will generate 3 different files: A coarse-grained structure (cg_prote
 Now it's time to place the protein inside a simulation box.
 
 ```
-gmx editconf -f cg_protein.pdb -o cg_protein.gro -d 1.0 -bt cubic -c
+gmx editconf -f 181L_clean.pdb -o 181L_clean.gro -d 1.0 -bt cubic -c
 ```
 You want to make sure that your protein has enough room inside the box to avoid close contacts between periodic images of the protein. Typically, a minimum distance of 1.0 nm from the protein to any box edge tends to be used. If you still encounter close contacts, it might be recommend to make your box larger (e.g allowing for a distance of 1.5 nm from the protein to any box edge)
 
@@ -130,7 +131,7 @@ Once the protein has been placed inside the simulation box, it's time to run a s
 gmx grompp will assemble the structure, topology and simulation parameters into a binary input file (.tpr). This file file will be used in a later step to run the energy minimization.
 
 ```
-gmx grompp -p system.top -f minimization.mdp -c your_protein_cg.gro -o minimization-vac.tpr  -r your_protein_cg.gro
+gmx grompp -p system.top -f minimization.mdp -c 181L_clean.gro -o minimization-vac.tpr  -r 181L_clean.gro
 ```
 Now that we have our .tpr file, we can run the energy minimization
 ```
