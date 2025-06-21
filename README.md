@@ -6,7 +6,7 @@ Molecular dynamics (MD) simulations are capable of predicting how every atom in 
 
 MD simulations can be divided into two major groups: All-atoms and coarse-grained.
 
-All-atoms simulations represent every atom of the simulation, making them extremely precise if computational heavy. Coarse-grained simulations group atoms into beads, which makes them faster and less computationally heavy at the cost of a slight loss in precision.
+All-atoms simulations represent every atom present in the system, making them extremely precise if computational heavy. Coarse-grained simulations, on the other hand, split atoms into beads. Each bead is usually equivalent to four non-hydrogen atoms. Because the atoms are grouped inside of beads and not individually being processed, coarse-grained simulations are faster and less computationally heavy at the cost of a slight loss in precision.
 
 ## Tools
 In this workshop, we will be working with a couple of different tools.
