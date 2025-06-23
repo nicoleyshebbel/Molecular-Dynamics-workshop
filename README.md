@@ -73,7 +73,7 @@ wget http://www.rcsb.org/pdb/files/181L.pdb
 ```
 grep "^ATOM" 181L.pdb > 181L_clean.pdb
 ```
-This step is done in order to avoid that your protein file contains anything but your actual protein. Be careful, this step will remove anything that is not part of your protein including ligands. After you clean your structure, open the your_protein_clean.pdb file in your favourite visualizer to make sure it contains only the protein.
+This step is done in order to avoid that your protein file contains anything but your actual protein. Be careful, this step will remove anything that is not part of your protein including ligands. After you clean your structure, open the 181L_clean.pdb file in your favourite visualizer to make sure it contains only the protein.
 ![20250623_103821-COLLAGE](https://github.com/user-attachments/assets/8239ceac-a439-4e88-a74f-0517a0cefa8c)
  _Figure 2. On the left, 181L structure before cleaning. On the right, the clean 181L structure._
 
