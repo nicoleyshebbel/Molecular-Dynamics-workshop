@@ -7,6 +7,11 @@ Molecular dynamics (MD) simulations are capable of predicting how every atom in 
 MD simulations can be divided into two major groups: All-atoms and coarse-grained.
 
 All-atoms simulations represent every atom present in the system, making them extremely precise if computational heavy. Coarse-grained simulations, on the other hand, split atoms into beads. Each bead is usually equivalent to four non-hydrogen atoms. Because the atoms are grouped inside of beads and not individually being processed, coarse-grained simulations are faster and less computationally heavy at the cost of a slight loss in precision.
+![20250623_101553-COLLAGE](https://github.com/user-attachments/assets/8af1b0ce-3234-496b-9a07-afad9679b6b2)
+ _Figure 1. On the left, an atomistic representation of T4 lysozyme. On the right, a coarse-grained representation of the same protein._
+
+
+
 
 ## Tools
 In this workshop, we will be working with a couple of different tools.
@@ -69,6 +74,9 @@ wget http://www.rcsb.org/pdb/files/181L.pdb
 grep "^ATOM" 181L.pdb > 181L_clean.pdb
 ```
 This step is done in order to avoid that your protein file contains anything but your actual protein. Be careful, this step will remove anything that is not part of your protein including ligands. After you clean your structure, open the your_protein_clean.pdb file in your favourite visualizer to make sure it contains only the protein.
+![20250623_103821-COLLAGE](https://github.com/user-attachments/assets/8239ceac-a439-4e88-a74f-0517a0cefa8c)
+ _Figure 2. On the left, 181L structure before cleaning. On the right, the clean 181L structure._
+
 
 ### Specifying the secondary structure
 
@@ -97,6 +105,9 @@ You will find your file inside the File > Working Directory > File Browser. This
 martinize2 -f 181L_clean.pdb -o system.top -x 181L_clean.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss CCHHHHHHHHHCCCCCCEEECCEEEECCCCCCCCCCCCHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHHHHHHCCCHHHHHHHCCHHHHHHHHHHHHHHCHHHHHHCHHHHHHHHHCCHHHHHHHHHCCHHHHHCHHHHHHHHHHHHHCCCHHHC
 ```
 martinize2 will generate 3 different files: A coarse-grained structure (cg_protein.pdb), a topology file ( system.top) and protein topology file ( molecule_0.itp). The amount of protein topology files will be entirely depedent on the amount of proteins in your system. Now, we should make a box that will accomodate our protein.
+![test2](https://github.com/user-attachments/assets/ddbde26d-5448-467e-a25e-81ed3a804760)
+_Figure 3. The coarse-grained structure of T4 lysozyme_
+
 
 
 ### Defining the simulation box
@@ -137,12 +148,19 @@ Now that we have our .tpr file, we can run the energy minimization
 ```
 gmx mdrun -deffnm minimization-vac -v
 ```
+![test2](https://github.com/user-attachments/assets/894727a4-7d7d-4e7d-a17d-dad83f3313d3)
+_Figure 4. The coarse-grained structure of T4 lysozyme after a minimization in vacuum._
+
 ### Solvating the system
 Now it's time to fill the simulation box with water.
 
 ```
 gmx solvate -cp minimization-vac.gro -cs water.gro -radius 0.21 -o solvated.gro -p system.top
 ```
+![image](https://github.com/user-attachments/assets/86404276-c2c3-4640-9f44-8888426e302e)
+
+_Figure 5. The system after solvation._
+
 
 ### Adding Ions
 
@@ -188,6 +206,9 @@ Group    13 (              W) has  2959 elements
 Select a group:
 Selected 13: 'W'
 ```
+![image](https://github.com/user-attachments/assets/e56b5bfd-2f12-4bfe-ad29-0352a624fb59)
+_Figure 6. The system after solvation and the addition of ions._
+
 
 #### Adding the ligand to the simulation cell
 
@@ -220,6 +241,9 @@ Now add the coordinates at the end of the file, just before the cell lenght
  1BENZ       R3    3   2.986   0.658   2.168 
    7.53042   7.53042   7.53042
 ```
+![image](https://github.com/user-attachments/assets/ecd27d71-7e68-4416-ae54-885b3d9a0abd)
+_Figure 7. Protein and ligand inside the solvated simulation cell._
+
 
 Don't forget to update the number of atoms in your file! The number of atoms can be found in the second line of your protein_ligand.gro file. 
 ```
