@@ -348,12 +348,15 @@ gmx trjconv -f dynamic.xtc -s dynamic.tpr -fit rot+trans -o simulation.pdb -cone
 Then you should run the renaming.py script to translate the pdb file into a compatible Pymol pdb.
 
 ```
-python rename.py input.pdb output.pdb
+python rename.py simulation.pdb simulation_system.pdb
 ```
 Now Pymol should be able to easily read your file.
 
 ### Visualization
 Open your file in PyMOL. Load your trajectory using the following command: 
 ```
-traj_load traj_centered.xtc, simulation_system, start=0, stop=1000
+load_traj traj_centered.xtc, simulation_system, start=0, stop=1000
 ```
+![image](https://github.com/user-attachments/assets/0cd05d6b-88ad-4b1c-8e7a-980cdb1daa00)
+_Figure . And there you have it!_
+
