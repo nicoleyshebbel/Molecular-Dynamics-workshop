@@ -75,7 +75,8 @@ Prior to solvation, there are some steps that should be taken to guarantee a pro
 
 ### Generating topology and coarse-grained structure
 The spherical potentials used during coarse-graining leads to the loss of directional bonds, which in turn can impact the stability of secondary, tertiary and quartenary structure of proteins. Because of that, coarse-grained models require a structure bias model to stabilize protein structures. In this workshop, we will be using the Elastic Network structure bias model to stabilize our structure.
-```martinize2 -f 181L_clean.pdb -o system.top -x 181L_cg.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss CCHHHHHHHHHCCCCCCEEECCEEEECCCCCCCCCCCCHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHHHHHHCCCHHHHHHHCCHHHHHHHHHHHHHHCHHHHHHCHHHHHHHHHCCHHHHHHHHHCCHHHHHCHHHHHHHHHHHHHCCCHHHC
+```
+martinize2 -f 181L_clean.pdb -o system.top -x 181L_cg.pdb -p backbone -ff martini3001 -elastic -ef 700.0 -el 0.5 -eu 0.9 -ea 0 -ep 0 -ss CCHHHHHHHHHCCCCCCEEECCEEEECCCCCCCCCCCCHHHHHHHHHHHHCCCCCCCCCHHHHHHHHHHHHHHHHHHHHHCCCHHHHHHHCCHHHHHHHHHHHHHHCHHHHHHCHHHHHHHHHCCHHHHHHHHHCCHHHHHCHHHHHHHHHHHHHCCCHHHC
 ```
 martinize2 will generate 3 different files: A coarse-grained structure (181L_cg.pdb), a topology file ( system.top) and protein topology file ( molecule_0.itp). The amount of protein topology files will be entirely dependent on the amount of proteins in your system. Now, we should make a simulation box that will accommodate our protein.
 ![test2](https://github.com/user-attachments/assets/ddbde26d-5448-467e-a25e-81ed3a804760)
