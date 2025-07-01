@@ -156,53 +156,31 @@ After the system has been solvated, it's time to add the ligand into the simulat
 ```
 cp solvated.gro protein_ligand.gro
 ```
-Once that's done, it's time to open it in a text editor. Copy the coordinates of your ligand (you will find them inside the [ligand.gro](https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop/blob/main/Simulation%20Files/ligand.gro) file). 
+Once that's done, it's time to add the ligand coordinates inside of your protein_ligand.gro file: 
 
 ```
-One benzene molecule
-   3
- 1BENZ      R1     1   3.092   0.660   2.416
- 1BENZ      R2     2   2.882   0.500   2.361
- 1BENZ      R3     3   2.986   0.658   2.168
-   4.04705   4.04705   4.04705
+awk '
+  { lines[NR] = $0 }
+  END {
+    for (i=1; i < NR; i++) print lines[i]
+    printf " 1BENZ       R1    1   3.092   0.660   2.416\n"
+    printf " 1BENZ       R2    2   2.882   0.500   2.361\n"
+    printf " 1BENZ       R3    3   2.986   0.658   2.168\n"
+    print lines[NR]
+  }
+' protein_ligand.gro > tmp && mv tmp protein_ligand.gro
+````
+
+Don't forget to update the number of atoms in your file!
 ```
-Now paste the coordinates at the end of the protein_ligand.gro file, just before the cell lenght.
+awk 'NR==2 {$1=$1+3} {print}' solvated.gro > tmp && mv tmp solvated.gro
 ```
- 3114CL      CL 3333   5.060   0.707   3.866
- 3115CL      CL 3334   4.857   6.938   0.205
- 3116CL      CL 3335   6.335   5.101   0.232
- 3117CL      CL 3336   6.550   4.857   3.118
- 3118CL      CL 3337   7.006   6.194   3.369
- 3119CL      CL 3338   6.062   5.445   2.350
- 3120CL      CL 3339   5.692   6.195   3.504
- 3121CL      CL 3340   7.216   5.363   6.495
- 1BENZ       R1    1   3.092   0.660   2.416 
- 1BENZ       R2    2   2.882   0.500   2.361 
- 1BENZ       R3    3   2.986   0.658   2.168 
-   7.53042   7.53042   7.53042
-```
+
 ![image](https://github.com/user-attachments/assets/801aa021-24a6-487e-af22-ef1b79d9f5f7)
 
 _Figure 6. Protein and ligand inside the solvated simulation cell. In green, T4 lysozyme. In orange, benzene, which is our ligand._
 
 
-
-
-
-Don't forget to update the number of atoms in your file! The number of atoms can be found in the second line of your protein_ligand.gro file. 
-
-```
-Title of the system in water
- 3343 (3343=3340 atoms that were present in the system plus 3 atoms from the ligand)
-    1MET     BB    1   4.542   2.402   3.751
-    1MET    SC1    2   4.688   2.692   3.528
-    2ASN     BB    3   4.302   2.597   3.918
-    2ASN    SC1    4   4.422   2.533   4.232
-    3ILE     BB    5   4.165   2.886   3.999
-    3ILE    SC1    6   3.838   2.878   4.098
-```
-
-The final protein_ligand file is available [here](https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop/blob/main/Worked_files/protein_ligand.gro)
 
 #### Updating the topology file
 After having our system undergo so many changes, it is important to update your topology file. For your convenience, this has been already been done and can be found [here](https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop/blob/main/Simulation%20Files/system_ligand.top). Don't forget to reference this new topology file on your subsequent steps.
