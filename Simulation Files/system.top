@@ -2,7 +2,7 @@
 #include "molecule_0.itp"
 #include "martini_v3.0.0_small_molecules_v1.itp"
 #include "martini_v3.0.0_ions_v1.itp"
-#include "martini_v3.0.0_solvents_v1.itp"
+#include "martini_v3.0.0_solvents.itp"
 #include "nucleotides.itp"
 
 [ system ]
