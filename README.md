@@ -140,7 +140,10 @@ Now that we have the ions.tpr file, it's time to add the ions to our system.
 gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutral -conc 0.15
 ```
 
+When prompted, you should select Group 13 (W).  You wouldn't want to add ions to your protein structure, would you? 
+
 This is what your command line should look like once you hit enter:
+
 ```
 Command line:
   gmx genion -s ions.tpr -o solvated.gro -p system.top -pname NA -nname CL -neutral -conc 0.15
@@ -166,7 +169,7 @@ Group    13 (              W) has  2959 elements
 Select a group:
 Selected 13: 'W'
 ```
-When prompted, you should select Group 13 (W).  You wouldn't want to add ions to your protein structure, would you?
+
 
 ![image](https://github.com/user-attachments/assets/e56b5bfd-2f12-4bfe-ad29-0352a624fb59)
 _Figure 5. The system after solvation and the addition of ions._
