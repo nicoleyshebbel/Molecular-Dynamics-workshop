@@ -76,7 +76,7 @@ Now that we're inside the directory, we should download the repository.
 
 ```
 git clone https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop
-cd Molecular-Dynamics-workshop/'Simulation Files'
+cd Molecular-Dynamics-workshop/Simulation_files
 ```
 
 ### Introduction
