@@ -63,7 +63,8 @@ module load GROMACS
 ### Download the repository
 This will make sure that you have all the files necessary to run our simulation, including the already worked outputs.
 
-First, we're going to set up a directory where we will be running our simulation off. The `mkdir` command creates a new directory with a name chosen by us. In this case, we will be using our own name as a directory name.  
+First, we're going to set up a directory where we will be running our simulation off. The `mkdir` command creates a new directory with a name chosen by us. In this case, we will be using our own name as a directory name. Make sure to change the your-name part of the command to your actual name.
+
 ```
 mkdir your-name
 ```
