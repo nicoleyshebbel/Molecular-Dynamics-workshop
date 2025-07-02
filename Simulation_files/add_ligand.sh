@@ -12,3 +12,4 @@ awk '
     print lines[NR]
   }
 ' protein_ligand.gro > tmp && mv tmp protein_ligand.gro
+echo "The ligand  was successfully added to the simulation box"
