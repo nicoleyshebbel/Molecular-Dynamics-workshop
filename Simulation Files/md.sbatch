@@ -7,7 +7,7 @@
 #SBATCH --ntasks=4
 #SBATCH --ntasks-per-node=4
 #SBATCH --cpus-per-task=6
-#SBATCH --mem=200G
+#SBATCH --mem=100G
 #SBATCH --time=04:00:00
 #SBATCH --mail-type=ALL
 #SBATCH --mail-user=user@email.com
