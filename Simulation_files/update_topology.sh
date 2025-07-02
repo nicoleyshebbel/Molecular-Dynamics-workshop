@@ -19,3 +19,4 @@ END {
         printf "%-15s%4d\n", "BENZ", 1
 }
 ' system.top > system.top.tmp && mv system.top.tmp system.top
+echo 'Your topology file was succesfully updated'
