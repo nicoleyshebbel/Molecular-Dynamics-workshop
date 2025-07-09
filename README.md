@@ -1,5 +1,8 @@
 # Molecular dynamics simulation of protein-ligand interactions
 
+## Contact 
+In case of issues or any questions, please contact nicoleyshebbel@gmail.com
+
 ## What are Molecular Dynamics (MD) simulations? 
 
 Molecular dynamics (MD) simulations are capable of predicting how every atom in a protein or a system will move over time. Such simulations can showcase a variety of biomolecular processes, such as conformational changes, ligand binding and protein folding. 
@@ -250,7 +253,7 @@ After running `.gmx grompp.` you should run the next step using the provided sba
 ```
 sbatch md.sbatch
 ```
-It should take around 30 minutes for this last step. There will be a output file provided in case your simulation takes longer to run or you weren't able to reach this step.
+It should take around 30 minutes for this last step. There will be a [output file](https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop/blob/main/Simulation_files/simulation_files.zip) provided in case your simulation takes longer to run or you weren't able to reach this step.
 By the end of this run, you should have three different files: Two trajectory files (.xtc and .tpr) and a file containing the spatial coordinates of your atoms during your molecular dynamics simulation (.gro)
 
 ### Analysis
@@ -298,3 +301,9 @@ load_traj traj_centered.xtc, simulation_system, start=0, stop=1000
 ![image](https://github.com/user-attachments/assets/0cd05d6b-88ad-4b1c-8e7a-980cdb1daa00)
 _Figure 7. And there you have it! You have run a molecular dynamics simulation of protein-ligand interactions_
 
+### Acknowledging this tutorial
+If the information provided in this workshop contributes to your work, research or teaching, please consider acknowledging it in your work. 
+```
+Nicole Schmidt-Hebbel, Molecular Dynamics Workshop (2025), Github repository,
+https://github.com/nicoleyshebbel/Molecular-Dynamics-workshop#
+```
